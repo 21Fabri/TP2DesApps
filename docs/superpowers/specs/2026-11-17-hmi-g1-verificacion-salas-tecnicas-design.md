@@ -321,19 +321,24 @@ El equipo tiene lidar 3D y un arreglo de micrófonos capaz de ubicar el origen d
 
 ### Mapa de pantallas
 
-| Pantalla | Contenido |
-|---|---|
-| **Selección de robot** | Lista de equipos con su estado. Incluye al menos uno no disponible, para mostrar el estado deshabilitado |
-| **Panel de supervisión** | Estado del robot, batería, enlace, ronda en curso con progreso, alertas activas, accesos al resto |
-| **Telemetría** | Las ocho obligatorias y las tres del servicio, con última actualización |
-| **Misiones** | Rondas disponibles y detalle de la ronda con sus 5 puntos y el resultado de cada uno |
-| **Control** | Comandos con su condición de habilitación y el estado de cada orden enviada |
-| **Alertas** | Lista con severidad, marca de reconocimiento y acción de reconocer |
-| **Historial** | Rondas y eventos persistidos, con los puntos sin verificar de las rondas incompletas |
-| **Estado de desconexión** | Tratamiento transversal: degradado del panel con antigüedad del dato, más una vista de reconciliación al recuperar |
-| **Decisión de anomalía** | Modal del subproceso con los tres caminos |
-| **Autorización de supervisor** | Modal de ingreso de código con su vigencia |
-| **Modo demo** | Selección de los cinco escenarios e inyección de fallas sueltas |
+El enunciado permite combinar vistas si la navegación sigue siendo clara. Se usan **6 pantallas y 3 modales**, con la desconexión tratada como estado transversal y no como pantalla.
+
+| # | Pantalla | Contenido | Cubre del enunciado |
+|---|---|---|---|
+| 1 | **Selección de robot** | Lista de equipos con su estado. Incluye al menos uno no disponible, para mostrar el estado deshabilitado | Selección del robot |
+| 2 | **Supervisión** | Arriba el resumen: estado, batería, enlace, progreso de ronda, alertas activas. Abajo, scrolleando, la telemetría completa con las ocho obligatorias y las tres del servicio | Panel de supervisión + Telemetría |
+| 3 | **Misión** | Ronda activa con sus 5 puntos y el resultado de cada uno | Misiones |
+| 4 | **Control** | Comandos con su condición de habilitación y el estado de cada orden enviada | Control |
+| 5 | **Alertas e historial** | Dos pestañas: alertas activas con acción de reconocer, e historial de rondas y eventos persistidos | Alertas + Historial |
+| 6 | **Modo demo** | Selección de los cinco escenarios e inyección de fallas sueltas | Herramienta de prueba |
+
+Modales:
+
+- **Decisión de anomalía** — los tres caminos del subproceso.
+- **Autorización de supervisor** — ingreso de código con su vigencia.
+- **Confirmación de dos pasos** — para cancelar y para accionar el seccionador.
+
+**Desconexión**: no es una pantalla. Es un estado que degrada visualmente las pantallas 2, 3 y 4, mostrando la antigüedad del dato en segundos y marcando las órdenes como sin respuesta. Al recuperar el enlace, los eventos reconciliados aparecen en el historial de la pantalla 5.
 
 ### Componentes reutilizables
 
@@ -364,22 +369,36 @@ Kotlin, Jetpack Compose, MVVM, ViewModel, StateFlow, Room. Funciona sin robot, s
 
 ```
 model/      Robot, Telemetry, Mission, CheckPoint, CheckResult,
-            Command, CommandState, Alert, Event
+            Command, CommandState, Alert, Event, Severidad
 data/       RobotRepository (interface)
             SimulatedRobotRepository (implementación)
-            room/ MissionHistoryDao, EventDao, entities
+            local/ EventoEntity, EventoDao, AppDatabase
 sim/        RobotSimulator — máquina de estados + tick de 500 ms
             FaultInjector — desconexión, batería, temperatura, no ejecución
-ui/         screens/ y components/ en Compose
-viewmodel/  SupervisionViewModel, MissionViewModel, ControlViewModel,
-            HistoryViewModel
+ui/         screens/ (6 pantallas) y components/ en Compose
+viewmodel/  RobotViewModel (único) + RobotViewModelFactory
 ```
 
 ### Flujo de datos
 
-La UI observa `StateFlow` expuestos por el ViewModel. El ViewModel colecta flows del `RobotRepository`. El Repository envuelve al simulador y a Room. Los eventos de comando viajan en sentido inverso: UI → ViewModel → Repository → simulador.
+La UI observa **un solo `StateFlow<UiState>`** expuesto por `RobotViewModel`. El ViewModel colecta los flows del `RobotRepository`. El Repository envuelve al simulador y a Room. Los eventos de comando viajan en sentido inverso: UI → ViewModel → Repository → simulador.
 
-**La UI nunca accede al simulador.** El `RobotRepository` es la única frontera, lo que permitiría reemplazar la implementación simulada por una real sin tocar la UI ni los ViewModels.
+**La UI nunca accede al simulador.** El `RobotRepository` es la única frontera, lo que permitiría reemplazar la implementación simulada por una real sin tocar la UI ni el ViewModel.
+
+### Decisiones de simplicidad
+
+El trabajo lo desarrolla **una sola persona**, y un criterio explícito es que todo el código tenga que poder explicarse oralmente en la defensa. De ahí estas decisiones:
+
+| Decisión | En lugar de | Fundamento defendible |
+|---|---|---|
+| **Un solo `RobotViewModel`** con un `UiState` | Cuatro ViewModels por pantalla | La app tiene un único dominio, el estado del robot. Partirlo obligaría a sincronizar cuatro copias del mismo estado |
+| **Una sola tabla `eventos`** en Room | Dos entidades con sus DAOs | El enunciado pide persistir el historial de misiones **o** de eventos. Una tabla de eventos con campo `clase` deriva el historial de rondas por consulta |
+| **Sin framework de inyección de dependencias** | Hilt o Koin | El repositorio se crea una vez en la clase `Application` y se entrega por `ViewModelProvider.Factory`. Son veinte líneas que se explican, contra una capa de anotaciones que no |
+| **Simulador en un bucle de corrutina** | Operadores de flows encadenados | Un `while` con `delay(500)` que avanza la máquina de estados y publica en un `MutableStateFlow`. Es lineal y se lee de arriba a abajo |
+| **Navegación con un `enum` de pantalla** en el estado | Navigation Compose con rutas | Con 6 pantallas, un `when` sobre un enum alcanza y evita una dependencia más |
+| **Un módulo único** | Separación en módulos Gradle | La separación de responsabilidades se logra con paquetes, que es lo que el enunciado pide |
+
+Lo que **no** se simplifica, porque es donde está el valor del trabajo: la distinción entre orden confirmada y ejecución verificada, las condiciones de habilitación con sus motivos de rechazo, y la reconciliación de eventos posterior a la desconexión.
 
 ### Simulador
 
@@ -409,7 +428,9 @@ Estos valores son del simulador y están centralizados para poder ajustarlos sin
 
 ### Persistencia
 
-Room guarda el historial de rondas y de eventos. El esquema de eventos lleva `ts` de origen y `recibidoTs`, para soportar la reconciliación posterior a una desconexión.
+Room guarda **una sola tabla `eventos`**. Cada fila lleva `ts` de origen y `recibidoTs`, lo que soporta la reconciliación posterior a una desconexión, y un campo `clase` (`RONDA_INICIADA`, `PUNTO_COMPLETADO`, `ALERTA_EMITIDA`, `ORDEN_ENVIADA`, `RONDA_CERRADA`, …).
+
+El historial de rondas no es otra tabla: se **deriva por consulta** sobre esa tabla, agrupando por `misionId`. Así una sola entidad cubre el requisito de persistir historial de misiones o de eventos.
 
 ---
 
