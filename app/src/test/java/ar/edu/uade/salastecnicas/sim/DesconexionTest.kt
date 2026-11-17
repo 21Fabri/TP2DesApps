@@ -43,6 +43,21 @@ class DesconexionTest {
     }
 
     @Test
+    fun `el enlace cortado antes del primer tick igual envejece el dato`() {
+        // Caso del Modo demo: el escenario arranca la ronda y corta el enlace
+        // sin que haya pasado ningún tick. Si no se congela la telemetría en
+        // ese instante, la antigüedad queda clavada en cero.
+        val sim = RobotSimulator()
+        sim.enviar(Orden.INICIAR_MISION)
+        sim.forzarEnlace(EstadoEnlace.PERDIDO)
+
+        sim.avanzarMs(5_000)
+
+        assertEquals(5_000L, sim.antiguedadMs())
+        assertTrue(sim.datoAntiguo())
+    }
+
+    @Test
     fun `el robot sigue trabajando aunque la app no lo vea`() {
         val sim = RobotSimulator()
         sim.enviar(Orden.INICIAR_MISION)

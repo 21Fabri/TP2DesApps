@@ -97,8 +97,14 @@ class RobotSimulator(
      */
     fun telemetria(): Telemetria {
         val ultima = ultimaTelemetria
-        return if (enlace == EstadoEnlace.PERDIDO && ultima != null) ultima
-        else construirTelemetria()
+        return if (enlace == EstadoEnlace.PERDIDO && ultima != null) {
+            // Los datos del robot quedan congelados, pero el estado del enlace
+            // se informa al día: es lo único que la app mide por sí misma, y sin
+            // eso el operador no podría saber que está mirando datos viejos.
+            ultima.copy(enlace = enlace)
+        } else {
+            construirTelemetria()
+        }
     }
 
     /**
@@ -764,6 +770,14 @@ class RobotSimulator(
 
     fun forzarEnlace(nuevo: EstadoEnlace) {
         val anterior = enlace
+
+        // Al cortarse el enlace hay que congelar lo último que la app llegó a
+        // ver. Sin esto, si el corte ocurre antes del primer tick la telemetría
+        // cae al valor actual y la antigüedad se queda en cero para siempre.
+        if (anterior != EstadoEnlace.PERDIDO && nuevo == EstadoEnlace.PERDIDO) {
+            ultimaTelemetria = construirTelemetria()
+        }
+
         enlace = nuevo
         if (anterior != EstadoEnlace.PERDIDO && nuevo == EstadoEnlace.PERDIDO) {
             registrarEvento(ClaseEvento.ENLACE_PERDIDO, "Enlace perdido")

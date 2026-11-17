@@ -73,8 +73,13 @@ fun AppNavigation(vm: RobotViewModel) {
                     onReconocer = { vm.pedirOrden(Orden.RECONOCER_ALERTAS) }
                 )
 
-                Pantalla.MODO_DEMO ->
-                    ModoDemoScreen(estado, vm)
+                Pantalla.MODO_DEMO -> ModoDemoScreen(
+                    onEscenario = vm::aplicarEscenario,
+                    onForzarEnlace = vm::forzarEnlace,
+                    onForzarPresencia = vm::forzarPresencia,
+                    onForzarBateria = vm::forzarBateria,
+                    onReiniciar = vm::reiniciar
+                )
             }
 
             if (estado.ultimaRespuesta != null) {

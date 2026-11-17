@@ -17,19 +17,23 @@ import androidx.compose.ui.unit.dp
 import ar.edu.uade.salastecnicas.model.Escenario
 import ar.edu.uade.salastecnicas.model.EstadoEnlace
 import ar.edu.uade.salastecnicas.model.Parametros
-import ar.edu.uade.salastecnicas.viewmodel.RobotViewModel
-import ar.edu.uade.salastecnicas.viewmodel.UiState
 
 /**
  * Herramienta de prueba, no parte de la app que se entregaría a un cliente.
  *
  * Existe para que cada escenario se pueda reproducir a voluntad, tanto para
  * grabar las evidencias como para la defensa.
+ *
+ * Recibe funciones y no el ViewModel: ninguna pantalla conoce al ViewModel,
+ * y así se puede previsualizar sin levantar la app.
  */
 @Composable
 fun ModoDemoScreen(
-    estado: UiState,
-    vm: RobotViewModel,
+    onEscenario: (Escenario) -> Unit,
+    onForzarEnlace: (EstadoEnlace) -> Unit,
+    onForzarPresencia: (Double?) -> Unit,
+    onForzarBateria: (Double) -> Unit,
+    onReiniciar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -54,70 +58,70 @@ fun ModoDemoScreen(
         BotonEscenario(
             "1 · Misión normal",
             "Reinicia todo. Iniciar la ronda desde Control y verla completarse."
-        ) { vm.aplicarEscenario(Escenario.MISION_NORMAL) }
+        ) { onEscenario(Escenario.MISION_NORMAL) }
 
         BotonEscenario(
             "2 · Batería baja",
             "Ronda en curso con 40 % de batería: se pausa sola y avisa. Continuar " +
                 "se deshabilita cuando ya no alcanza para el regreso."
-        ) { vm.aplicarEscenario(Escenario.BATERIA_BAJA) }
+        ) { onEscenario(Escenario.BATERIA_BAJA) }
 
         BotonEscenario(
             "3 · Desconexión",
             "Ronda en curso sin enlace: datos antiguos, órdenes sin respuesta y, al " +
                 "restablecer, reconciliación de eventos en el historial."
-        ) { vm.aplicarEscenario(Escenario.DESCONEXION) }
+        ) { onEscenario(Escenario.DESCONEXION) }
 
         BotonEscenario(
             "4 · Incidente",
             "El primer punto va a medir 78,4 °C: falla, alerta crítica y decisión " +
                 "obligatoria del operador."
-        ) { vm.aplicarEscenario(Escenario.INCIDENTE) }
+        ) { onEscenario(Escenario.INCIDENTE) }
 
         BotonEscenario(
             "5 · Orden confirmada que no se ejecuta",
             "La detención operativa responde confirmada y el robot sigue caminando. " +
                 "Enviarla desde Control y mirar el estado de la orden."
-        ) { vm.aplicarEscenario(Escenario.ORDEN_NO_EJECUTADA) }
+        ) { onEscenario(Escenario.ORDEN_NO_EJECUTADA) }
 
         HorizontalDivider(Modifier.padding(vertical = 20.dp))
 
         Text("Fallas sueltas", style = MaterialTheme.typography.titleMedium)
 
         OutlinedButton(
-            onClick = { vm.forzarEnlace(EstadoEnlace.PERDIDO) },
+            onClick = { onForzarEnlace(EstadoEnlace.PERDIDO) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Cortar el enlace") }
 
         OutlinedButton(
-            onClick = { vm.forzarEnlace(EstadoEnlace.DEGRADADO) },
+            onClick = { onForzarEnlace(EstadoEnlace.DEGRADADO) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Degradar el enlace") }
 
         OutlinedButton(
-            onClick = { vm.forzarEnlace(EstadoEnlace.OK) },
+            onClick = { onForzarEnlace(EstadoEnlace.OK) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Restablecer el enlace") }
 
         OutlinedButton(
-            onClick = { vm.forzarPresencia(1.8) },
+            onClick = { onForzarPresencia(1.8) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Presencia a 1,8 m en zona ciega") }
 
         OutlinedButton(
-            onClick = { vm.forzarPresencia(null) },
+            onClick = { onForzarPresencia(null) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Despejar la presencia") }
 
         OutlinedButton(
-            onClick = { vm.forzarBateria(43.0) },
+            onClick = { onForzarBateria(43.0) },
             modifier = Modifier.fillMaxWidth().padding(top = 4.dp)
         ) { Text("Bajar la batería a 43 % (rechaza el inicio)") }
 
         HorizontalDivider(Modifier.padding(vertical = 20.dp))
 
         Button(
-            onClick = { vm.reiniciar() },
+            onClick = { onReiniciar() },
             modifier = Modifier.fillMaxWidth()
         ) { Text("Reiniciar todo y borrar el historial") }
 

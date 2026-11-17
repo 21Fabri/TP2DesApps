@@ -236,7 +236,7 @@ Criterios de verificación por orden:
 
 | Orden | Criterio de ejecución verificada |
 |---|---|
-| Detención operativa | `velocidadMs == 0` sostenido durante 2 s |
+| Detención operativa | `estadoOperativo == DETENIDO` con `velocidadMs == 0` sostenido 2 s |
 | Pausar | `estadoOperativo == PAUSADO` |
 | Regreso a punto seguro | `estadoOperativo == RETORNANDO` |
 | Accionar seccionador | Lectura de ausencia de tensión en el punto |
@@ -305,7 +305,7 @@ Durante la desconexión el operador puede actuar creyendo que ve el presente.
 
 - **Interfaz**: antigüedad en segundos y degradado visual progresivo; nunca el último valor mostrado como si fuera actual.
 - **Lógica**: las órdenes quedan en `SIN_RESPUESTA` y no se reintentan automáticamente.
-- **Procedimiento**: si el enlace se pierde más de 60 s, el robot ejecuta regreso autónomo al punto seguro sin esperar orden.
+- **Procedimiento**: si el enlace se pierde más de 20 s, el robot ejecuta regreso autónomo al punto seguro sin esperar orden.
 
 ### Riesgo 5 — Privacidad
 
@@ -417,10 +417,10 @@ Dirigido por reloj, con tick de 500 ms. Responsabilidades:
 | Tick de simulación | 500 ms |
 | Vencimiento de orden sin respuesta | 8 s |
 | Dato considerado antiguo | > 3 s desde la última actualización |
-| Regreso autónomo por pérdida de enlace | 60 s sin enlace |
+| Regreso autónomo por pérdida de enlace | 20 s sin enlace |
 | Margen de batería para habilitar inicio | 15 % sobre ronda + regreso |
 | Vigencia de la autorización de supervisor | 120 s |
-| Verificación de detención | `velocidadMs == 0` sostenido 2 s |
+| Verificación de detención | `estadoOperativo == DETENIDO` y `velocidadMs == 0` sostenido 2 s |
 | Umbral de temperatura que marca `FALLA` | 70 °C |
 | Distancia de presencia que bloquea el avance | 2,5 m |
 
@@ -458,7 +458,7 @@ El historial de rondas no es otra tabla: se **deriva por consulta** sobre esa ta
   "movimiento": { "velocidadMs": 0.0, "caminando": false },
   "servicio": {
     "temperaturaMaxC": 41.2,
-    "entorno": { "coberturaPct": 68, "presencias": 0 },
+    "entorno": { "coberturaPct": 68, "presencias": 0, "distanciaPresenciaM": null },
     "margenEstabilidadPct": 83
   },
   "alertasActivas": 1
@@ -505,7 +505,8 @@ El historial de rondas no es otra tabla: se **deriva por consulta** sobre esa ta
   "ts": "2026-11-17T22:14:08Z",
   "ejecucion": {
     "verificada": false,
-    "criterio": "velocidadMs == 0 sostenido 2 s"
+    "criterio": "estado DETENIDO con velocidad 0 sostenida 2 s",
+    "fallida": false
   }
 }
 ```
@@ -558,6 +559,10 @@ El historial de rondas no es otra tabla: se **deriva por consulta** sobre esa ta
 | La ausencia de tensión no es telemetría | Es un resultado por punto, no un valor continuo |
 | La detención operativa no tiene condiciones de habilitación | Rechazar una parada por otra condición sería inaceptable |
 | Pantalla de modo demo visible | Permite reproducir los cinco escenarios de forma repetible para evidencias y defensa; se declara como herramienta de prueba |
+| La detención se verifica por estado y no sólo por velocidad cero | Durante una verificación el robot también está quieto; tomar eso por obediencia habría dado por ejecutada una orden ignorada, justo en el escenario 5 |
+| Durante la desconexión el estado del enlace se informa al día | Los datos del robot quedan congelados, pero el enlace es lo único que la app mide por sí misma; sin eso el operador no sabría que está mirando datos viejos |
+| Al cortarse el enlace la telemetría se congela en ese instante | Si el corte ocurre antes del primer tick, sin congelar nada la antigüedad se quedaría en cero y el escenario 3 no se podría demostrar |
+| El porcentaje de batería se redondea al leerlo | Restar el consumo tick por tick acumula error de punto flotante y desplazaba el valor en un punto |
 
 ### Limitaciones del trabajo
 
