@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Control</text>
+
+  <text x="20" y="86" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">COMANDOS DE MISIÓN</text>
+
+  <!-- Iniciar mision: deshabilitado -->
+  <rect x="16" y="94" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="118" font-size="13" font-weight="600" fill="#AAB2BB">Iniciar misión</text>
+  <text x="32" y="137" font-size="10.5" fill="#8A949E">Ya hay una ronda en curso</text>
+
+  <!-- Pausar: habilitado -->
+  <rect x="16" y="156" width="328" height="54" rx="10" fill="#FFFFFF" stroke="#0B63CE" stroke-width="1.5"/>
+  <text x="32" y="180" font-size="13" font-weight="600" fill="#0B63CE">Pausar misión</text>
+  <text x="32" y="199" font-size="10.5" fill="#6B7684">El robot se detiene y conserva el punto actual</text>
+
+  <!-- Reanudar: deshabilitado con motivo -->
+  <rect x="16" y="218" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="242" font-size="13" font-weight="600" fill="#AAB2BB">Reanudar misión</text>
+  <text x="32" y="261" font-size="10.5" fill="#B26B00">Presencia detectada a 1,8 m en sector no cubierto</text>
+
+  <!-- Cancelar: habilitado, dos pasos -->
+  <rect x="16" y="280" width="328" height="54" rx="10" fill="#FFFFFF" stroke="#C6CED6" stroke-width="1.5"/>
+  <text x="32" y="304" font-size="13" font-weight="600" fill="#1A1D21">Cancelar misión</text>
+  <text x="32" y="323" font-size="10.5" fill="#6B7684">Confirmación en dos pasos · la cuadrilla no podrá entrar</text>
+
+  <text x="20" y="360" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">SEGURIDAD</text>
+
+  <!-- Regreso a punto seguro -->
+  <rect x="16" y="368" width="328" height="54" rx="10" fill="#FFFFFF" stroke="#C6CED6" stroke-width="1.5"/>
+  <text x="32" y="392" font-size="13" font-weight="600" fill="#1A1D21">Regreso a punto seguro</text>
+  <text x="32" y="411" font-size="10.5" fill="#6B7684">Vuelve a la antesala · no cierra la ronda</text>
+
+  <!-- Detencion operativa: siempre habilitada -->
+  <rect x="16" y="430" width="328" height="62" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="2"/>
+  <text x="32" y="456" font-size="14" font-weight="700" fill="#C0392B">Detención operativa</text>
+  <text x="32" y="474" font-size="10.5" fill="#A5392B">Siempre habilitada, sin condiciones</text>
+  <text x="32" y="488" font-size="9.5" fill="#8A949E">Es una solicitud por software, no una parada de emergencia</text>
+
+  <text x="20" y="518" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">ÓRDENES ENVIADAS</text>
+
+  <!-- Orden 1: confirmada pero NO ejecutada -->
+  <rect x="16" y="526" width="328" height="68" rx="10" fill="#FDECEA" stroke="#E0A49C" stroke-width="1.5"/>
+  <text x="32" y="548" font-size="12.5" font-weight="600" fill="#1A1D21">Detención operativa</text>
+  <rect x="246" y="534" width="82" height="19" rx="9.5" fill="#E8F4EC"/>
+  <text x="287" y="547" font-size="10" font-weight="700" fill="#2F6B48" text-anchor="middle">CONFIRMADA</text>
+  <text x="32" y="568" font-size="11" font-weight="700" fill="#C0392B">Ejecución NO verificada</text>
+  <text x="32" y="585" font-size="10" fill="#A5392B">Sigue a 1,2 m/s tras 5 s · intervención presencial</text>
+
+  <!-- Orden 2: confirmada y ejecutada -->
+  <rect x="16" y="602" width="328" height="60" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="624" font-size="12.5" font-weight="600" fill="#1A1D21">Pausar misión</text>
+  <rect x="246" y="610" width="82" height="19" rx="9.5" fill="#E8F4EC"/>
+  <text x="287" y="623" font-size="10" font-weight="700" fill="#2F6B48" text-anchor="middle">CONFIRMADA</text>
+  <text x="32" y="645" font-size="10.5" fill="#2F6B48">Ejecución verificada · estado PAUSADO a los 1,5 s</text>
+
+  <!-- Orden 3: rechazada -->
+  <rect x="16" y="670" width="328" height="60" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="692" font-size="12.5" font-weight="600" fill="#1A1D21">Accionar seccionador</text>
+  <rect x="254" y="678" width="74" height="19" rx="9.5" fill="#FDECEA"/>
+  <text x="291" y="691" font-size="10" font-weight="700" fill="#C0392B" text-anchor="middle">RECHAZADA</text>
+  <text x="32" y="713" font-size="10.5" fill="#6B7684">Autorización de supervisor vencida (120 s)</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="156" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#0B63CE" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#0B63CE"/>
+  <text x="180" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>

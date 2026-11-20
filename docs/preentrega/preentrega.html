@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Preentrega — HMI/HRI para verificación de salas técnicas</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 10.5pt/1.55 "Segoe UI", Calibri, Helvetica, Arial, sans-serif;
+    color: #1A1D21;
+  }
+  h1 {
+    font-size: 19pt; line-height: 1.25; margin: 0 0 4pt;
+    color: #15293F;
+  }
+  h1 + p { color: #5F6B76; font-size: 10pt; margin: 0 0 4pt; }
+  h2 {
+    font-size: 13.5pt; margin: 20pt 0 7pt; color: #15293F;
+    border-bottom: 1.2pt solid #C9D2DB; padding-bottom: 3pt;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 11pt; margin: 13pt 0 4pt; color: #1F3A5F;
+    page-break-after: avoid;
+  }
+  p { margin: 0 0 7pt; text-align: justify; }
+  ul, ol { margin: 0 0 8pt; padding-left: 16pt; }
+  li { margin-bottom: 3pt; }
+  strong { color: #15293F; }
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt; background: #EEF1F4; padding: 0.5pt 3pt;
+    border-radius: 3px; color: #1F3A5F;
+  }
+  hr { border: none; border-top: 1pt solid #DDE3E9; margin: 16pt 0; }
+  table {
+    width: 100%; border-collapse: collapse; margin: 6pt 0 11pt;
+    font-size: 9.2pt; page-break-inside: avoid;
+  }
+  th {
+    background: #1F3A5F; color: #fff; text-align: left;
+    padding: 5pt 7pt; font-weight: 600; font-size: 9pt;
+  }
+  td { padding: 5pt 7pt; border-bottom: 0.7pt solid #DDE3E9; vertical-align: top; }
+  tr:nth-child(even) td { background: #F6F8FA; }
+  .esquema { margin: 10pt 0 6pt; text-align: center; page-break-inside: avoid; }
+  .esquema svg { width: 100%; height: auto; }
+  em { color: #5F6B76; }
+  h2, h3 { break-after: avoid; }
+</style>
+</head>
+<body>
+<h1>Interfaz HMI/HRI para verificación previa de salas técnicas con Unitree G1</h1>
+<p><strong>Preentrega — Desarrollo de Aplicaciones I</strong><br>
+Facultad de Ingeniería y Ciencias Exactas — UADE<br>
+Fabricio Boccardo<br>
+20 de noviembre de 2026</p>
+<hr>
+<h2>1. El caso de uso</h2>
+<h3>1.1 El problema</h3>
+<p>Antes de que la cuadrilla de mantenimiento intervenga un tablero eléctrico o una sala de máquinas del edificio, alguien tiene que entrar primero a verificar las condiciones del recinto: ausencia de tensión, temperatura de barras y borneras, estado de instrumentos, presencia de humo u olor a quemado, y que no haya obstáculos ni daños visibles.</p>
+<h3>1.2 Cómo se resuelve hoy</h3>
+<p>Un técnico de mantenimiento entra con equipo de protección personal a hacer esa verificación a mano. Queda expuesto a:</p>
+<ul>
+<li><strong>Arco eléctrico</strong>, que es la contingencia grave: puede ser fatal y ocurre justamente en el momento de abrir o accionar.</li>
+<li>Atmósferas calientes o con productos de combustión.</li>
+<li>Espacios confinados con poca ventilación.</li>
+</ul>
+<p>Además, la verificación depende de la atención de una persona al final de un turno y no deja registro estructurado: queda en una planilla en papel o en la memoria del técnico.</p>
+<h3>1.3 La propuesta</h3>
+<p>El Unitree G1 entra primero. Recorre los cinco puntos de verificación de una ronda, toma lecturas, acciona lo que haga falta bajo autorización explícita, y devuelve un informe de condiciones. La cuadrilla entra después, sabiendo qué va a encontrar. Un operador supervisa la ronda a distancia desde la aplicación, sin línea de vista al robot.</p>
+<h3>1.4 Por qué un robot y no el procedimiento actual</h3>
+<p>El costo del equipo (USD 60.000 aproximados) se compara contra la exposición de una persona a un evento de arco eléctrico, que es un riesgo de consecuencia catastrófica y baja probabilidad.</p>
+<p>El robot no elimina la necesidad de la cuadrilla. <strong>Elimina la exposición en el momento de mayor riesgo</strong>, que es la verificación a ciegas de un recinto cuyo estado se desconoce. Como beneficio secundario, cada ronda deja un registro estructurado y con marca de tiempo que hoy no existe.</p>
+<h3>1.5 Por qué el G1 y no el Go2</h3>
+<p>El cuadrúpedo no tiene manos. En este servicio hay que:</p>
+<ul>
+<li>Abrir puertas de tablero y accionar llaves y seccionadores, que son controles diseñados para manos humanas.</li>
+<li>Leer instrumentos analógicos montados a la altura del rostro de una persona de pie.</li>
+</ul>
+<p>La altura de 1,32 m del G1 coincide con la franja de montaje de instrumentos y mandos de un tablero. El argumento central es que <strong>el G1 interactúa con infraestructura diseñada para humanos</strong>, que es exactamente lo que un cuadrúpedo o un robot con ruedas no puede hacer.</p>
+<hr>
+<h2>2. La plataforma: Unitree G1 EDU</h2>
+<h3>2.1 Datos técnicos</h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Peso</td>
+<td>35 kg</td>
+</tr>
+<tr>
+<td>Altura</td>
+<td>1,32 m</td>
+</tr>
+<tr>
+<td>Velocidad máxima</td>
+<td>2 m/s</td>
+</tr>
+<tr>
+<td>Articulaciones</td>
+<td>Más de 35</td>
+</tr>
+<tr>
+<td>Capacidad de carga</td>
+<td>5 kg por brazo</td>
+</tr>
+<tr>
+<td>Autonomía</td>
+<td>2 h 30 min a 3 h según uso</td>
+</tr>
+<tr>
+<td>Tiempo de carga</td>
+<td>1 h 30 min</td>
+</tr>
+<tr>
+<td>Costo aproximado</td>
+<td>USD 60.000</td>
+</tr>
+</tbody></table>
+<h3>2.2 Capacidades disponibles de fábrica</h3>
+<ul>
+<li><strong>Mapeo 3D por lidar.</strong> Genera un mapa del entorno. Mira hacia abajo en un cono triangular; lo que queda alrededor se representa como mapa de calor.</li>
+<li><strong>Arreglo de micrófonos.</strong> Varios micrófonos agrupados que permiten ubicar la dirección de origen de un sonido.</li>
+<li><strong>Sensor inercial de equilibrio.</strong> Giroscopio y acelerómetro que revisan la postura muchas veces por segundo.</li>
+<li><strong>Manos con sensor en la palma</strong>, con 5 kg de capacidad por brazo.</li>
+<li><strong>Arquitectura de dos cómputos:</strong> una parte blindada por el fabricante y una parte abierta a programación.</li>
+<li><strong>Integración con asistentes de IA.</strong> En la demostración observada estaba integrado con Otto, el asistente de UADE.</li>
+</ul>
+<h3>2.3 Restricciones relevantes para este caso</h3>
+<p>Estas limitaciones no son defectos a ocultar: son el fundamento del diseño de seguridad de la interfaz.</p>
+<ul>
+<li><strong>No cuenta con corte físico de emergencia (kill-switch).</strong> Es la restricción que domina todo el diseño.</li>
+<li><strong>La estabilidad es su punto débil.</strong> Pisa con fuerza y, en modo manual, la teleoperación no consulta sus sensores de entorno.</li>
+<li><strong>Zona ciega perimetral.</strong> El cono de visión apunta hacia abajo; el entorno lateral y trasero se representa como mapa de calor y no como detección confiable.</li>
+<li><strong>No actúa por iniciativa propia.</strong> Necesita un objetivo dado. Reconoce patrones aprendidos de datos; no comprende la situación como una persona. Lo que se percibe como personalidad es diseño de interacción, no estado emocional.</li>
+<li><strong>Autonomía acotada.</strong> Entre 2 h 30 min y 3 h, con 1 h 30 min de recarga, lo que obliga a planificar la ronda y el regreso.</li>
+</ul>
+<h3>2.4 Capacidades que requerirían equipamiento o desarrollo adicional</h3>
+<p>Se distingue de forma explícita lo que el robot hace de fábrica de lo que habría que construir:</p>
+<table>
+<thead>
+<tr>
+<th>Capacidad necesaria</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Medición de temperatura de tableros</td>
+<td>Requiere <strong>cámara térmica</strong> adicional; no viene de fábrica</td>
+</tr>
+<tr>
+<td>Detección de humo, CO o gases</td>
+<td>Requiere sensores adicionales</td>
+</tr>
+<tr>
+<td>Lectura de instrumentos analógicos</td>
+<td>Requiere visión por computadora entrenada para este caso</td>
+</tr>
+<tr>
+<td>Accionamiento de seccionadores</td>
+<td>Requiere herramienta específica, validación de torque y certificación eléctrica</td>
+</tr>
+<tr>
+<td>Corte físico de emergencia</td>
+<td><strong>No existe</strong>; requiere desarrollo o un dispositivo externo</td>
+</tr>
+<tr>
+<td>Navegación autónoma robusta en sala técnica</td>
+<td>El lidar mapea, pero la navegación confiable sin GPS en estos recintos requiere desarrollo</td>
+</tr>
+<tr>
+<td>Operación en ambiente con polvo o calor elevado</td>
+<td>Grado de protección no garantizado para el recinto</td>
+</tr>
+</tbody></table>
+<p>La variable de temperatura del servicio depende de equipamiento adicional, y así se declara en la interfaz.</p>
+<h3>2.5 Decisión de diseño: sin joystick</h3>
+<p><strong>La aplicación no ofrece control manual continuo.</strong> La razón no es simplificar: en modo manual el G1 no consulta sus sensores de entorno, de modo que un joystick remoto operado por alguien sin línea de vista convierte al operador en la única barrera contra una colisión, con 35 kg a 2 m/s y una zona ciega perimetral.</p>
+<p>Todo el control es por <strong>órdenes discretas</strong>, que es lo que el enunciado permite expresamente.</p>
+<hr>
+<h2>3. Entorno y recorrido</h2>
+<h3>3.1 Ubicación</h3>
+<p>Pasillo de salas técnicas del edificio de UADE. El operador trabaja desde la oficina de mantenimiento, en otro piso, <strong>sin línea de vista</strong> al robot.</p>
+<h3>3.2 Esquema del recorrido</h3>
+<p><div class="esquema"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 648" width="980" height="648" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+
+  <defs>
+    <marker id="flechaRuta" viewBox="0 0 10 10" refX="8" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0b63ce"/>
+    </marker>
+    <marker id="flechaRegreso" viewBox="0 0 10 10" refX="8" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7684"/>
+    </marker>
+  </defs>
+
+  <rect width="980" height="648" fill="#ffffff"/>
+
+  <!-- Titulo -->
+  <text x="55" y="34" font-size="19" font-weight="600" fill="#1a1d21">
+    Salas técnicas — recorrido de la ronda de verificación
+  </text>
+  <text x="55" y="58" font-size="13" fill="#5f6b76">
+    Esquema representativo. Ronda de 5 puntos: 38 min de verificación + 10 min de traslados + 9 min de regreso.
+  </text>
+
+  <!-- ============ Pasillo tecnico ============ -->
+  <rect x="55" y="270" width="865" height="80" rx="3" fill="#eef1f4" stroke="#c6ced6" stroke-width="1.5"/>
+  <text x="905" y="296" font-size="12" fill="#8a949e" text-anchor="end">Pasillo técnico</text>
+
+  <!-- ============ Antesala: punto seguro ============ -->
+  <rect x="55" y="255" width="128" height="110" rx="4" fill="#e8f4ec" stroke="#4e9c6d" stroke-width="2"/>
+  <text x="119" y="288" font-size="12.5" font-weight="600" fill="#2f6b48" text-anchor="middle">Antesala</text>
+  <text x="119" y="306" font-size="11.5" fill="#3d7a56" text-anchor="middle">Punto seguro</text>
+  <text x="119" y="323" font-size="11.5" fill="#3d7a56" text-anchor="middle">Base de carga</text>
+  <text x="119" y="346" font-size="11" font-weight="600" fill="#2f6b48" text-anchor="middle">INICIO / FIN</text>
+
+  <!-- ============ Salas sobre el pasillo ============ -->
+  <!-- P1 -->
+  <rect x="225" y="95" width="150" height="160" rx="4" fill="#ffffff" stroke="#9aa7b4" stroke-width="1.8"/>
+  <text x="300" y="134" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">Sala de</text>
+  <text x="300" y="152" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">tablero general</text>
+  <text x="300" y="177" font-size="11.5" fill="#5f6b76" text-anchor="middle">8 min</text>
+  <text x="300" y="196" font-size="10.5" fill="#8a949e" text-anchor="middle">recinto blindado</text>
+
+  <!-- P3 -->
+  <rect x="475" y="95" width="150" height="160" rx="4" fill="#ffffff" stroke="#9aa7b4" stroke-width="1.8"/>
+  <text x="550" y="134" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">Sala de UPS</text>
+  <text x="550" y="152" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">y racks</text>
+  <text x="550" y="177" font-size="11.5" fill="#5f6b76" text-anchor="middle">7 min</text>
+
+  <!-- P5 -->
+  <rect x="725" y="95" width="150" height="160" rx="4" fill="#ffffff" stroke="#9aa7b4" stroke-width="1.8"/>
+  <text x="800" y="134" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">Grupo</text>
+  <text x="800" y="152" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">electrógeno</text>
+  <text x="800" y="177" font-size="11.5" fill="#5f6b76" text-anchor="middle">7 min</text>
+
+  <!-- ============ Salas bajo el pasillo ============ -->
+  <!-- P2 -->
+  <rect x="350" y="365" width="150" height="160" rx="4" fill="#ffffff" stroke="#9aa7b4" stroke-width="1.8"/>
+  <text x="425" y="432" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">Sala de bombas</text>
+  <text x="425" y="450" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">y presurización</text>
+  <text x="425" y="475" font-size="11.5" fill="#5f6b76" text-anchor="middle">8 min</text>
+
+  <!-- P4 -->
+  <rect x="600" y="365" width="150" height="160" rx="4" fill="#ffffff" stroke="#9aa7b4" stroke-width="1.8"/>
+  <text x="675" y="432" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">Sala de máquinas</text>
+  <text x="675" y="450" font-size="12.5" font-weight="600" fill="#1a1d21" text-anchor="middle">de ascensores</text>
+  <text x="675" y="475" font-size="11.5" fill="#5f6b76" text-anchor="middle">8 min</text>
+
+  <!-- ============ Regreso (se dibuja primero, queda por debajo) ============ -->
+  <line x1="800" y1="332" x2="200" y2="332"
+        stroke="#6b7684" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#flechaRegreso)"/>
+
+  <!-- ============ Recorrido de ida ============ -->
+  <line x1="183" y1="300" x2="800" y2="300" stroke="#0b63ce" stroke-width="2.5"/>
+
+  <!-- Entradas a las salas de arriba -->
+  <line x1="300" y1="300" x2="300" y2="258" stroke="#0b63ce" stroke-width="2.5" marker-end="url(#flechaRuta)"/>
+  <line x1="550" y1="300" x2="550" y2="258" stroke="#0b63ce" stroke-width="2.5" marker-end="url(#flechaRuta)"/>
+  <line x1="800" y1="300" x2="800" y2="258" stroke="#0b63ce" stroke-width="2.5" marker-end="url(#flechaRuta)"/>
+
+  <!-- Entradas a las salas de abajo: halo blanco para que el cruce con el
+       regreso se lea como un salto y no como una conexion -->
+  <line x1="425" y1="312" x2="425" y2="352" stroke="#ffffff" stroke-width="7"/>
+  <line x1="675" y1="312" x2="675" y2="352" stroke="#ffffff" stroke-width="7"/>
+  <line x1="425" y1="300" x2="425" y2="362" stroke="#0b63ce" stroke-width="2.5" marker-end="url(#flechaRuta)"/>
+  <line x1="675" y1="300" x2="675" y2="362" stroke="#0b63ce" stroke-width="2.5" marker-end="url(#flechaRuta)"/>
+
+  <!-- ============ Numeros de orden ============ -->
+  <g font-size="13" font-weight="700" text-anchor="middle">
+    <circle cx="300" cy="230" r="14" fill="#0b63ce"/>
+    <text x="300" y="235" fill="#ffffff">1</text>
+    <circle cx="425" cy="392" r="14" fill="#0b63ce"/>
+    <text x="425" y="397" fill="#ffffff">2</text>
+    <circle cx="550" cy="230" r="14" fill="#0b63ce"/>
+    <text x="550" y="235" fill="#ffffff">3</text>
+    <circle cx="675" cy="392" r="14" fill="#0b63ce"/>
+    <text x="675" y="397" fill="#ffffff">4</text>
+    <circle cx="800" cy="230" r="14" fill="#0b63ce"/>
+    <text x="800" y="235" fill="#ffffff">5</text>
+  </g>
+
+  <!-- ============ Oficina del operador ============ -->
+  <rect x="55" y="498" width="235" height="82" rx="4" fill="#f4f0fa" stroke="#8a76c4" stroke-width="2"/>
+  <text x="172" y="527" font-size="12.5" font-weight="600" fill="#4a3a7a" text-anchor="middle">
+    Oficina de mantenimiento
+  </text>
+  <text x="172" y="546" font-size="11.5" fill="#5f4f8a" text-anchor="middle">Operador — supervisa la ronda</text>
+  <text x="172" y="564" font-size="11.5" fill="#5f4f8a" text-anchor="middle">desde la aplicación</text>
+
+  <line x1="215" y1="498" x2="215" y2="354"
+        stroke="#8a76c4" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="228" y="420" font-size="11.5" fill="#5f4f8a">Enlace Wi-Fi</text>
+  <text x="228" y="437" font-size="11.5" font-weight="600" fill="#5f4f8a">sin línea de vista</text>
+
+  <!-- ============ Referencias ============ -->
+  <g font-size="11.5" fill="#5f6b76">
+    <line x1="470" y1="548" x2="510" y2="548" stroke="#0b63ce" stroke-width="2.5"
+          marker-end="url(#flechaRuta)"/>
+    <text x="522" y="552">Recorrido de la ronda — 48 min</text>
+
+    <line x1="470" y1="574" x2="510" y2="574" stroke="#6b7684" stroke-width="2"
+          stroke-dasharray="7 5" marker-end="url(#flechaRegreso)"/>
+    <text x="522" y="578">Regreso al punto seguro — 9 min</text>
+
+    <rect x="470" y="594" width="40" height="13" rx="2" fill="#e8f4ec" stroke="#4e9c6d" stroke-width="1.5"/>
+    <text x="522" y="605">Punto seguro y base de carga</text>
+  </g>
+
+</svg>
+</div></p>
+<p><em>Esquema representativo de la disposición de las salas y del orden de la ronda. Las dimensiones y la posición relativa se confirman con el relevamiento en sitio.</em></p>
+<h3>3.3 Ronda de verificación</h3>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Punto</th>
+<th>Qué verifica</th>
+<th>Tiempo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P1</td>
+<td>Sala de tablero general</td>
+<td>Ausencia de tensión, temperatura de barras, olor a quemado</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>Sala de bombas y presurización</td>
+<td>Estado de bombas, temperatura, pérdidas</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>Sala de UPS y racks</td>
+<td>Temperatura, estado de baterías, ventilación</td>
+<td>7 min</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>Sala de máquinas de ascensores</td>
+<td>Temperatura, estado de maniobra</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>Grupo electrógeno</td>
+<td>Nivel de combustible, temperatura, estado de arranque</td>
+<td>7 min</td>
+</tr>
+</tbody></table>
+<p>Con 2 minutos de traslado entre puntos, la ronda completa demanda <strong>48 minutos</strong>, más <strong>9 minutos</strong> de regreso. Sobre una autonomía de 150 minutos, el margen es amplio, pero la aplicación igual verifica la relación antes de permitir el inicio.</p>
+<h3>3.4 Punto seguro</h3>
+<p>Antesala del pasillo técnico, donde está la base de carga. Es el destino del comando de regreso y del regreso autónomo por pérdida de enlace prolongada.</p>
+<hr>
+<h2>4. Actores y roles</h2>
+<table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Usa la app</th>
+<th>Qué necesita</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Operador de mantenimiento</strong></td>
+<td>Sí, es el único usuario</td>
+<td>Estado del robot y de la ronda, alertas, capacidad de intervenir</td>
+</tr>
+<tr>
+<td><strong>Supervisor de mantenimiento</strong></td>
+<td>No directamente</td>
+<td>Autoriza las órdenes críticas mediante código; queda registrado nominalmente</td>
+</tr>
+<tr>
+<td><strong>Cuadrilla de mantenimiento</strong></td>
+<td>No</td>
+<td>El informe de condiciones antes de entrar</td>
+</tr>
+<tr>
+<td><strong>Acompañante presencial</strong></td>
+<td>No</td>
+<td>Está en el sitio con autoridad para intervenir físicamente y cortar la alimentación de la sala</td>
+</tr>
+<tr>
+<td><strong>Terceros</strong> (alumnos, personal de limpieza)</td>
+<td>No</td>
+<td>Señalización y previsibilidad del movimiento del robot</td>
+</tr>
+</tbody></table>
+<h3>4.1 La interacción con las personas presentes (HRI)</h3>
+<p>El robot recorre pasillos de una facultad, así que la interacción no se limita al operador:</p>
+<ul>
+<li><strong>Señalización y previsibilidad.</strong> Cartelería en el acceso al pasillo técnico durante la ronda, y ventana horaria sin actividad académica.</li>
+<li><strong>El robot cede el paso.</strong> Al detectar presencia el avance se bloquea y la reanudación queda a cargo del operador, no del robot.</li>
+<li><strong>Indicador de registro.</strong> La interfaz muestra qué se está registrando en cada momento, porque el equipo lleva lidar y micrófonos por un edificio con gente.</li>
+<li><strong>El acompañante presencial</strong> es la vía de intervención física cuando la aplicación ya no alcanza.</li>
+</ul>
+<h3>4.2 Cuándo debe intervenir un humano</h3>
+<ol>
+<li>Cuando un punto de verificación da resultado de falla: el robot no decide, se detiene y espera.</li>
+<li>Cuando una orden crítica requiere autorización de supervisor.</li>
+<li>Cuando la batería no alcanza para completar la ronda y el regreso.</li>
+<li>Cuando se detecta presencia en el entorno y el avance queda bloqueado.</li>
+<li>Cuando una orden de detención no se verifica como ejecutada: ahí interviene el acompañante presencial, porque la aplicación ya no alcanza.</li>
+</ol>
+<hr>
+<h2>5. Modelo de misión</h2>
+<h3>5.1 Estructura</h3>
+<p>La misión es una <strong>ronda ordenada de puntos de verificación</strong>. En cada punto el robot toma lecturas y produce un resultado: <code>OK</code>, <code>OBSERVACION</code> o <code>FALLA</code>. El progreso es puntos completados sobre el total.</p>
+<h3>5.2 Subproceso de anomalía</h3>
+<p>Cuando un punto da <code>FALLA</code>, el robot se detiene y la aplicación exige una decisión del operador entre tres caminos:</p>
+<ol>
+<li><strong>Marcar y continuar</strong> — se registra la falla y la ronda sigue con el punto siguiente.</li>
+<li><strong>Aislar</strong> — se solicita accionar el seccionador, lo que exige autorización de supervisor.</li>
+<li><strong>Abortar y regresar</strong> — la ronda se cierra como incompleta y el robot vuelve al punto seguro.</li>
+</ol>
+<p>Sin decisión del operador el robot no avanza. Este subproceso es el que da lugar al flujo con falla del prototipo.</p>
+<h3>5.3 Consecuencia operativa de una ronda incompleta</h3>
+<p>Si la ronda no se completa, <strong>la cuadrilla no puede entrar</strong>. El historial registra qué puntos quedaron sin verificar. Esto le da peso real a los comandos de cancelación y de regreso: no son botones decorativos, cancelan un permiso de trabajo.</p>
+<h3>5.4 Estados operativos</h3>
+<p><code>EN_ESPERA</code>, <code>EN_TRASLADO</code>, <code>VERIFICANDO_PUNTO</code>, <code>ESPERANDO_DECISION</code>, <code>PAUSADO</code>, <code>DETENIDO</code>, <code>RETORNANDO</code>, <code>EN_FALLA</code></p>
+<hr>
+<h2>6. Telemetría</h2>
+<h3>6.1 Las ocho obligatorias</h3>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Representación en este caso</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Conectividad</td>
+<td>Estado del enlace (<code>OK</code>, <code>DEGRADADO</code>, <code>PERDIDO</code>) y latencia en ms</td>
+</tr>
+<tr>
+<td>Batería</td>
+<td>Porcentaje y autonomía estimada restante en minutos</td>
+</tr>
+<tr>
+<td>Estado operativo</td>
+<td>Uno de los ocho estados de la sección anterior</td>
+</tr>
+<tr>
+<td>Misión y progreso</td>
+<td>Ronda activa, punto actual, completados sobre total</td>
+</tr>
+<tr>
+<td>Ubicación</td>
+<td>Sala y punto de verificación actual</td>
+</tr>
+<tr>
+<td>Movimiento</td>
+<td>Velocidad en m/s y bandera de caminando</td>
+</tr>
+<tr>
+<td>Alertas</td>
+<td>Lista con severidad (<code>INFO</code>, <code>ADVERTENCIA</code>, <code>CRITICA</code>) y marca de reconocimiento</td>
+</tr>
+<tr>
+<td>Última actualización</td>
+<td>Marca de tiempo y antigüedad en segundos, con bandera de dato antiguo</td>
+</tr>
+</tbody></table>
+<h3>6.2 Las tres variables del servicio</h3>
+<p>Criterio de selección: tienen que ser <strong>dinámicas</strong> y estar ancladas en una capacidad o una limitación real del G1.</p>
+<ol>
+<li><strong>Temperatura máxima detectada en el punto</strong> (°C). Es el dato que justifica la misión. Requiere cámara térmica adicional, lo cual se declara en la interfaz.</li>
+<li><strong>Cobertura del entorno y presencias detectadas</strong> (porcentaje del perímetro cubierto por el lidar, y conteo de personas). Anclada en la zona ciega perimetral: sirve para que <em>&quot;no detecto a nadie&quot;</em> no se lea como <em>&quot;no hay nadie&quot;</em>.</li>
+<li><strong>Margen de estabilidad</strong> (inclinación del torso, derivada del sensor inercial). Anclada en que la estabilidad es el punto débil del equipo, lo cual es crítico en salas con bandejas de cables y desniveles.</li>
+</ol>
+<h3>6.3 Una distinción de criterio</h3>
+<p><strong>La ausencia de tensión confirmada no es telemetría.</strong> Es el dato más importante del servicio, pero es un <strong>resultado por punto</strong> y no un valor que cambia segundo a segundo. Por eso va en el modelo de resultado del punto de verificación y no en el panel de telemetría.</p>
+<hr>
+<h2>7. Comandos</h2>
+<h3>7.1 Tabla de comandos</h3>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>Condiciones de habilitación</th>
+<th>Confirmación</th>
+<th>Rechazo típico</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Iniciar misión</strong></td>
+<td><code>EN_ESPERA</code>, enlace <code>OK</code>, autonomía ≥ ronda + regreso + 15 % de margen, sin alertas <code>CRITICA</code> sin reconocer</td>
+<td>Un paso</td>
+<td>&quot;Batería insuficiente: ronda 48 min + regreso 9 min; autonomía 41 min&quot;</td>
+</tr>
+<tr>
+<td><strong>Pausar</strong></td>
+<td>Misión en curso y no en medio de un accionamiento crítico</td>
+<td>Un paso</td>
+<td>&quot;No se puede pausar durante el accionamiento del seccionador&quot;</td>
+</tr>
+<tr>
+<td><strong>Reanudar</strong></td>
+<td><code>PAUSADO</code>, enlace <code>OK</code>, sin presencias en zona ciega</td>
+<td>Un paso</td>
+<td>&quot;Presencia detectada a 1,8 m en sector no cubierto&quot;</td>
+</tr>
+<tr>
+<td><strong>Cancelar misión</strong></td>
+<td>Misión activa o pausada</td>
+<td><strong>Dos pasos</strong></td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Regreso a punto seguro</strong></td>
+<td>Robot capaz de caminar y con ruta conocida</td>
+<td>Un paso</td>
+<td>&quot;Sin localización válida desde la posición actual&quot;</td>
+</tr>
+<tr>
+<td><strong>Detención operativa</strong></td>
+<td><strong>Siempre habilitado, sin condiciones</strong></td>
+<td>Un paso</td>
+<td>Nunca se rechaza; puede quedar sin respuesta</td>
+</tr>
+<tr>
+<td><strong>Reconocer alertas</strong></td>
+<td>Hay alertas sin reconocer</td>
+<td>Un paso</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Accionar seccionador</strong> (crítico)</td>
+<td>Dentro del subproceso de anomalía, autorización de supervisor vigente (120 s desde su ingreso), enlace <code>OK</code></td>
+<td><strong>Dos pasos</strong></td>
+<td>&quot;Código de supervisor inválido&quot; / &quot;Autorización vencida&quot; / &quot;Enlace degradado&quot;</td>
+</tr>
+</tbody></table>
+<h3>7.2 Tres decisiones que conviene dejar explícitas</h3>
+<p><strong>La detención operativa es el único comando sin condiciones de habilitación.</strong> Sería inaceptable rechazar una parada por batería baja o por enlace degradado.</p>
+<p><strong>Cancelar no es regresar.</strong> Cancelar cierra la ronda como incompleta, con la consecuencia de que la cuadrilla no entra; regresar mueve al robot a la base. Son dos efectos distintos.</p>
+<p><strong>Reconocer una alerta no la resuelve.</strong> Sólo registra que el operador la vio, y la interfaz lo muestra como tal.</p>
+<h3>7.3 Estados de la orden</h3>
+<p>Los cuatro estados que pide el enunciado:</p>
+<p><code>PENDIENTE</code> → <code>CONFIRMADA</code> | <code>RECHAZADA</code> | <code>SIN_RESPUESTA</code></p>
+<p>Una orden pasa a <code>SIN_RESPUESTA</code> si no llega respuesta en <strong>8 segundos</strong> desde el envío, y no se reintenta sola.</p>
+<h3>7.4 Confirmada no es ejecutada</h3>
+<p>Además del estado, cada orden lleva un indicador independiente: <strong>ejecución verificada</strong>.</p>
+<p>El robot puede acusar recibo de una orden de detención y seguir caminando. <code>CONFIRMADA</code> significa que el robot recibió la orden; la ejecución verificada significa que el efecto esperado <strong>se observó en la telemetría</strong>. Son dos cosas distintas y la interfaz las muestra como dos cosas distintas. El enunciado advierte exactamente esto: <em>una orden enviada no equivale a una orden ejecutada</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Orden</th>
+<th>Criterio de ejecución verificada</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Detención operativa</td>
+<td>Estado <code>DETENIDO</code> con velocidad 0 sostenida 2 s</td>
+</tr>
+<tr>
+<td>Pausar</td>
+<td>Estado <code>PAUSADO</code></td>
+</tr>
+<tr>
+<td>Regreso a punto seguro</td>
+<td>Estado <code>RETORNANDO</code></td>
+</tr>
+<tr>
+<td>Accionar seccionador</td>
+<td>Lectura de ausencia de tensión en el punto</td>
+</tr>
+</tbody></table>
+<p>La detención se verifica por estado y no sólo por velocidad cero, porque durante una verificación el robot también está quieto: tomar eso por obediencia habría dado por ejecutada una orden ignorada.</p>
+<hr>
+<h2>8. Riesgos y medidas</h2>
+<p>Cada riesgo se trata en tres niveles: lo que hace la <strong>interfaz</strong>, lo que hace la <strong>lógica</strong> y lo que establece el <strong>procedimiento</strong>.</p>
+<h3>Riesgo 1 — No hay corte físico de emergencia</h3>
+<p>El G1 no tiene kill-switch y el operador no tiene línea de vista.</p>
+<ul>
+<li><strong>Interfaz:</strong> la detención se presenta siempre como <em>solicitud</em>, nunca como garantía; escala visualmente si no se verifica el efecto.</li>
+<li><strong>Lógica:</strong> verificación de ejecución contra la telemetría, con criterio explícito.</li>
+<li><strong>Procedimiento:</strong> acompañante presencial obligatorio durante toda la ronda, con autoridad para intervenir físicamente y cortar la alimentación de la sala.</li>
+</ul>
+<h3>Riesgo 2 — Personas en la zona ciega</h3>
+<p>El cono de visión apunta hacia abajo; 35 kg a 2 m/s.</p>
+<ul>
+<li><strong>Interfaz:</strong> mostrar el porcentaje de cobertura y marcar el sector no cubierto.</li>
+<li><strong>Lógica:</strong> reanudar y avanzar se bloquean con presencia detectada.</li>
+<li><strong>Procedimiento:</strong> bloqueo de acceso y señalización de las salas durante la ronda.</li>
+</ul>
+<h3>Riesgo 3 — Órdenes accidentales sobre infraestructura eléctrica</h3>
+<p>Un toque mal dado que acciona un seccionador.</p>
+<ul>
+<li><strong>Interfaz:</strong> las órdenes críticas separadas visualmente del resto y fuera de la zona de alcance del pulgar.</li>
+<li><strong>Lógica:</strong> autorización de supervisor con ventana de validez de 120 s, más confirmación de dos pasos.</li>
+<li><strong>Procedimiento:</strong> registro nominal de quién autorizó cada accionamiento.</li>
+</ul>
+<h3>Riesgo 4 — Decidir sobre datos antiguos</h3>
+<p>Durante una desconexión el operador puede actuar creyendo que ve el presente.</p>
+<ul>
+<li><strong>Interfaz:</strong> antigüedad en segundos y degradado visual progresivo; nunca el último valor mostrado como si fuera actual.</li>
+<li><strong>Lógica:</strong> las órdenes quedan en <code>SIN_RESPUESTA</code> y no se reintentan automáticamente.</li>
+<li><strong>Procedimiento:</strong> si el enlace se pierde más de 20 s, el robot ejecuta regreso autónomo al punto seguro sin esperar orden.</li>
+</ul>
+<h3>Riesgo 5 — Privacidad</h3>
+<p>El equipo tiene lidar 3D y un arreglo de micrófonos capaz de ubicar el origen de un sonido, recorriendo pasillos de una facultad.</p>
+<ul>
+<li><strong>Interfaz:</strong> indicador visible de qué se está registrando en cada momento.</li>
+<li><strong>Lógica:</strong> no se persiste audio; la presencia se guarda como conteo, sin identificación.</li>
+<li><strong>Procedimiento:</strong> cartelería, ventana horaria sin actividad académica y retención limitada del historial.</li>
+</ul>
+<hr>
+<h2>9. Prototipo en Figma</h2>
+<h3>9.1 Mapa de pantallas</h3>
+<p>Se usan <strong>6 pantallas y 3 modales</strong>, con la desconexión tratada como estado transversal y no como pantalla aparte.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Pantalla</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Selección de robot</strong></td>
+<td>Lista de equipos con su estado. Incluye uno fuera de servicio, para mostrar el estado deshabilitado</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Supervisión</strong></td>
+<td>Resumen arriba: estado, batería, enlace, progreso, alertas. Abajo la telemetría completa: las ocho obligatorias y las tres del servicio</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Misión</strong></td>
+<td>Ronda activa con sus cinco puntos y el resultado de cada uno</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Control</strong></td>
+<td>Comandos con su condición de habilitación y el estado de cada orden enviada</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Alertas e historial</strong></td>
+<td>Alertas activas con acción de reconocer, e historial de rondas y eventos</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Modo demo</strong></td>
+<td>Selección de los cinco escenarios e inyección de fallas sueltas</td>
+</tr>
+</tbody></table>
+<p><strong>Modales:</strong> decisión de anomalía (los tres caminos), autorización de supervisor (código con su vigencia) y confirmación de dos pasos (cancelar y accionar seccionador).</p>
+<p><strong>La desconexión no es una pantalla.</strong> Es un estado que degrada visualmente las pantallas 2, 3 y 4, muestra la antigüedad del dato en segundos y marca las órdenes como sin respuesta. Al recuperar el enlace, los eventos reconciliados aparecen en el historial.</p>
+<p><strong>El modo demo</strong> no existiría en una app entregada a un cliente. Se justifica como herramienta de prueba: permite reproducir cada escenario a voluntad para generar las evidencias y el video, y disparar cualquier escenario durante la defensa. Queda marcado como tal.</p>
+<h3>9.2 Componentes reutilizables</h3>
+<p>Tarjeta de telemetría, botón de comando, chip de estado de orden, banner de alerta, indicador de antigüedad del dato y barra de progreso de ronda. Cada uno se entrega en los cuatro estados visuales: <strong>normal, deshabilitado, advertencia y error</strong>.</p>
+<h3>9.3 Los dos flujos navegables</h3>
+<ul>
+<li><strong>Flujo normal:</strong> selección de robot → supervisión → iniciar ronda → progreso → finalización → historial.</li>
+<li><strong>Flujo con falla:</strong> ronda en curso → punto con <code>FALLA</code> → decisión de anomalía → autorización de supervisor → accionamiento → resultado.</li>
+</ul>
+<hr>
+<h2>10. Fuentes técnicas</h2>
+<ul>
+<li><strong>Fuente primaria:</strong> demostración del Unitree G1 EDU en clase, con notas propias sobre sensores, dimensiones, autonomía, capacidad de carga, estabilidad, zona ciega, arquitectura de cómputo y ausencia de corte físico de emergencia.</li>
+<li>Documentación pública del fabricante, para verificar las especificaciones declaradas.</li>
+<li>Enunciado del Trabajo Práctico, Desarrollo de Aplicaciones I, UADE.</li>
+</ul>
+<hr>
+<h2>11. Limitaciones declaradas</h2>
+<ul>
+<li>La medición de temperatura, la detección de gases y la lectura de instrumentos analógicos requieren equipamiento o desarrollo que el G1 no trae de fábrica.</li>
+<li>El accionamiento de seccionadores requeriría validación de torque y certificación eléctrica, fuera del alcance de este trabajo.</li>
+<li>El contrato de mensajes de la aplicación es una propuesta propia del grupo y no el protocolo del fabricante.</li>
+<li>No hay validación con hardware físico: todo el comportamiento del robot es simulado.</li>
+<li>El esquema del recorrido es representativo y se confirma con el relevamiento en sitio.</li>
+</ul>
+
+</body>
+</html>

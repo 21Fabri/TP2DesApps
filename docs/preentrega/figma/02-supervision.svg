@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Supervisión</text>
+
+  <!-- Indicador de antiguedad del dato: estado normal -->
+  <rect x="0" y="56" width="360" height="34" fill="#FFFFFF"/>
+  <line x1="0" y1="90" x2="360" y2="90" stroke="#E2E6EB" stroke-width="1"/>
+  <circle cx="24" cy="73" r="4" fill="#2F6B48"/>
+  <text x="36" y="77" font-size="11.5" fill="#2F6B48">Dato actual · actualizado hace 1 s</text>
+
+  <!-- Estado operativo -->
+  <rect x="16" y="102" width="328" height="86" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="124" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">ESTADO OPERATIVO</text>
+  <rect x="32" y="134" width="112" height="26" rx="13" fill="#E7F0FB"/>
+  <text x="88" y="151" font-size="11.5" font-weight="700" fill="#0B63CE" text-anchor="middle">EN TRASLADO</text>
+  <text x="32" y="177" font-size="12" fill="#1A1D21">Pasillo técnico, rumbo a Sala de UPS y racks</text>
+
+  <!-- Progreso de la ronda -->
+  <rect x="16" y="198" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="220" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">RONDA DE VERIFICACIÓN</text>
+  <rect x="32" y="232" width="296" height="8" rx="4" fill="#EEF1F4"/>
+  <rect x="32" y="232" width="118" height="8" rx="4" fill="#0B63CE"/>
+  <text x="32" y="262" font-size="11.5" fill="#6B7684">2 de 5 puntos verificados · 40 %</text>
+
+  <!-- Bateria y enlace -->
+  <rect x="16" y="284" width="328" height="78" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="306" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">BATERÍA</text>
+  <text x="32" y="332" font-size="19" font-weight="700" fill="#1A1D21">78 %</text>
+  <text x="32" y="351" font-size="10.5" fill="#6B7684">105 min restantes</text>
+  <line x1="186" y1="298" x2="186" y2="348" stroke="#E2E6EB" stroke-width="1"/>
+  <text x="204" y="306" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">ENLACE</text>
+  <text x="204" y="332" font-size="19" font-weight="700" fill="#2F6B48">OK</text>
+  <text x="204" y="351" font-size="10.5" fill="#6B7684">latencia 42 ms</text>
+
+  <!-- Banner de alerta: estado advertencia -->
+  <rect x="16" y="372" width="328" height="56" rx="10" fill="#FFF4E0" stroke="#E6B566" stroke-width="1.5"/>
+  <path d="M 36 394 L 46 412 L 26 412 Z" fill="#B26B00"/>
+  <text x="36" y="410" font-size="9" font-weight="700" fill="#FFF4E0" text-anchor="middle">!</text>
+  <text x="58" y="396" font-size="12" font-weight="600" fill="#8A5200">Temperatura sobre umbral en P1</text>
+  <text x="58" y="414" font-size="10.5" fill="#B26B00">Sin reconocer · hace 3 min</text>
+
+  <!-- Telemetria del servicio -->
+  <text x="20" y="454" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">TELEMETRÍA DEL SERVICIO</text>
+
+  <rect x="16" y="464" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="486" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">TEMPERATURA MÁXIMA</text>
+  <text x="32" y="511" font-size="18" font-weight="700" fill="#1A1D21">41,2 °C</text>
+  <text x="32" y="530" font-size="10" fill="#B26B00">Requiere cámara térmica — equipamiento adicional</text>
+
+  <rect x="16" y="550" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="572" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">COBERTURA DEL ENTORNO</text>
+  <text x="32" y="597" font-size="18" font-weight="700" fill="#1A1D21">68 %</text>
+  <text x="104" y="597" font-size="12.5" fill="#6B7684">0 presencias detectadas</text>
+  <text x="32" y="616" font-size="10" fill="#6B7684">32 % del perímetro sin cubrir — zona ciega</text>
+
+  <rect x="16" y="636" width="328" height="70" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="658" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">MARGEN DE ESTABILIDAD</text>
+  <text x="32" y="683" font-size="18" font-weight="700" fill="#1A1D21">3,1°</text>
+  <text x="84" y="683" font-size="12.5" fill="#6B7684">inclinación del torso</text>
+
+  <text x="20" y="728" font-size="10.5" fill="#8A949E">Velocidad 1,2 m/s · caminando · última actualización 14:32:07</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="12" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#0B63CE" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#8A949E"/>
+  <text x="180" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>

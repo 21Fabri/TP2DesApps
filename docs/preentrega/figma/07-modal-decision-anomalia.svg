@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <!-- Fondo atenuado -->
+  <rect width="360" height="800" fill="#F7F8FA"/>
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Misión</text>
+  <rect width="360" height="800" fill="#1A1D21" fill-opacity="0.55"/>
+
+  <!-- Dialogo -->
+  <rect x="24" y="148" width="312" height="438" rx="16" fill="#FFFFFF"/>
+
+  <rect x="24" y="148" width="312" height="6" rx="3" fill="#C0392B"/>
+  <text x="44" y="186" font-size="16" font-weight="700" fill="#1A1D21">P1 con resultado FALLA</text>
+  <text x="44" y="208" font-size="11.5" fill="#6B7684">Sala de tablero general</text>
+
+  <rect x="44" y="222" width="272" height="56" rx="8" fill="#FDECEA"/>
+  <text x="58" y="244" font-size="11.5" font-weight="600" fill="#A5392B">Temperatura máxima 78,4 °C (umbral 70 °C)</text>
+  <text x="58" y="265" font-size="11.5" font-weight="600" fill="#A5392B">Ausencia de tensión: NO confirmada</text>
+
+  <text x="44" y="300" font-size="11.5" fill="#1A1D21">El robot está detenido y no avanza hasta que decidas.</text>
+
+  <!-- Opcion 1 -->
+  <rect x="44" y="314" width="272" height="58" rx="10" fill="#FFFFFF" stroke="#C6CED6" stroke-width="1.5"/>
+  <text x="60" y="338" font-size="12.5" font-weight="600" fill="#1A1D21">Marcar y continuar</text>
+  <text x="60" y="357" font-size="10.5" fill="#6B7684">Registra la falla y sigue con P2</text>
+
+  <!-- Opcion 2: critica -->
+  <rect x="44" y="382" width="272" height="72" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="2"/>
+  <text x="60" y="406" font-size="12.5" font-weight="700" fill="#C0392B">Aislar: accionar seccionador</text>
+  <rect x="238" y="392" width="62" height="18" rx="9" fill="#C0392B"/>
+  <text x="269" y="405" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">CRÍTICO</text>
+  <text x="60" y="425" font-size="10.5" fill="#A5392B">Requiere código de supervisor y confirmación</text>
+  <text x="60" y="442" font-size="10.5" fill="#A5392B">en dos pasos</text>
+
+  <!-- Opcion 3 -->
+  <rect x="44" y="464" width="272" height="58" rx="10" fill="#FFFFFF" stroke="#C6CED6" stroke-width="1.5"/>
+  <text x="60" y="488" font-size="12.5" font-weight="600" fill="#1A1D21">Abortar y regresar</text>
+  <text x="60" y="507" font-size="10.5" fill="#6B7684">Cierra la ronda como incompleta</text>
+
+  <line x1="44" y1="540" x2="316" y2="540" stroke="#E2E6EB" stroke-width="1"/>
+  <text x="44" y="560" font-size="10" fill="#8A949E">El robot no decide. Los tres caminos tienen</text>
+  <text x="44" y="574" font-size="10" fill="#8A949E">consecuencias distintas y las tres quedan registradas.</text>
+</svg>

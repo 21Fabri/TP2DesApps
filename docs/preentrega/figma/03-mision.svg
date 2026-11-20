@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Misión</text>
+
+  <!-- Encabezado de la ronda -->
+  <rect x="16" y="72" width="328" height="92" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="98" font-size="14" font-weight="600" fill="#1A1D21">Ronda de verificación previa</text>
+  <text x="32" y="117" font-size="11" fill="#6B7684">Iniciada 14:08 · estimada 48 min + 9 de regreso</text>
+  <rect x="32" y="128" width="296" height="8" rx="4" fill="#EEF1F4"/>
+  <rect x="32" y="128" width="118" height="8" rx="4" fill="#0B63CE"/>
+  <text x="32" y="155" font-size="11.5" fill="#6B7684">2 de 5 puntos verificados · 1 con falla</text>
+
+  <!-- P1: FALLA -->
+  <rect x="16" y="176" width="328" height="104" rx="12" fill="#FFFFFF" stroke="#E0A49C" stroke-width="1.5"/>
+  <rect x="16" y="176" width="5" height="104" rx="2.5" fill="#C0392B"/>
+  <text x="34" y="200" font-size="13" font-weight="600" fill="#1A1D21">P1 · Sala de tablero general</text>
+  <rect x="268" y="186" width="60" height="20" rx="10" fill="#FDECEA"/>
+  <text x="298" y="200" font-size="10.5" font-weight="700" fill="#C0392B" text-anchor="middle">FALLA</text>
+  <text x="34" y="222" font-size="11.5" fill="#A5392B">Temperatura máxima 78,4 °C (umbral 70 °C)</text>
+  <text x="34" y="241" font-size="11.5" fill="#A5392B">Ausencia de tensión: NO confirmada</text>
+  <text x="34" y="262" font-size="10.5" fill="#6B7684">Verificado 14:18 · esperando decisión del operador</text>
+
+  <!-- P2: OK -->
+  <rect x="16" y="290" width="328" height="84" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="290" width="5" height="84" rx="2.5" fill="#2F6B48"/>
+  <text x="34" y="314" font-size="13" font-weight="600" fill="#1A1D21">P2 · Sala de bombas y presurización</text>
+  <rect x="292" y="300" width="36" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="310" y="314" font-size="10.5" font-weight="700" fill="#2F6B48" text-anchor="middle">OK</text>
+  <text x="34" y="336" font-size="11.5" fill="#6B7684">Temperatura máxima 32,0 °C · sin pérdidas</text>
+  <text x="34" y="356" font-size="10.5" fill="#8A949E">Verificado 14:28</text>
+
+  <!-- P3: en curso -->
+  <rect x="16" y="384" width="328" height="84" rx="12" fill="#FFFFFF" stroke="#9EC2EC" stroke-width="1.5"/>
+  <rect x="16" y="384" width="5" height="84" rx="2.5" fill="#0B63CE"/>
+  <text x="34" y="408" font-size="13" font-weight="600" fill="#1A1D21">P3 · Sala de UPS y racks</text>
+  <rect x="258" y="394" width="70" height="20" rx="10" fill="#E7F0FB"/>
+  <text x="293" y="408" font-size="10.5" font-weight="700" fill="#0B63CE" text-anchor="middle">EN CURSO</text>
+  <text x="34" y="430" font-size="11.5" fill="#6B7684">En traslado · llegada estimada en 1 min</text>
+  <text x="34" y="450" font-size="10.5" fill="#8A949E">Verifica temperatura, baterías y ventilación · 7 min</text>
+
+  <!-- P4: pendiente -->
+  <rect x="16" y="478" width="328" height="84" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="478" width="5" height="84" rx="2.5" fill="#C6CED6"/>
+  <text x="34" y="502" font-size="13" font-weight="600" fill="#AAB2BB">P4 · Sala de máquinas de ascensores</text>
+  <rect x="252" y="488" width="76" height="20" rx="10" fill="#EEF1F4"/>
+  <text x="290" y="502" font-size="10.5" font-weight="700" fill="#8A949E" text-anchor="middle">PENDIENTE</text>
+  <text x="34" y="524" font-size="11.5" fill="#AAB2BB">Temperatura y estado de maniobra</text>
+  <text x="34" y="544" font-size="10.5" fill="#AAB2BB">8 min estimados</text>
+
+  <!-- P5: pendiente -->
+  <rect x="16" y="572" width="328" height="84" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="572" width="5" height="84" rx="2.5" fill="#C6CED6"/>
+  <text x="34" y="596" font-size="13" font-weight="600" fill="#AAB2BB">P5 · Grupo electrógeno</text>
+  <rect x="252" y="582" width="76" height="20" rx="10" fill="#EEF1F4"/>
+  <text x="290" y="596" font-size="10.5" font-weight="700" fill="#8A949E" text-anchor="middle">PENDIENTE</text>
+  <text x="34" y="618" font-size="11.5" fill="#AAB2BB">Combustible, temperatura y arranque</text>
+  <text x="34" y="638" font-size="10.5" fill="#AAB2BB">7 min estimados</text>
+
+  <!-- Consecuencia operativa -->
+  <rect x="16" y="668" width="328" height="56" rx="10" fill="#EEF1F4"/>
+  <text x="32" y="692" font-size="11" fill="#5F6B76">Si la ronda no se completa, la cuadrilla no puede</text>
+  <text x="32" y="710" font-size="11" fill="#5F6B76">ingresar. Los puntos sin verificar quedan registrados.</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="84" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#0B63CE" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#8A949E"/>
+  <text x="180" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>

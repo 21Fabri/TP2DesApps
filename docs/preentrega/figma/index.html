@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pantallas HMI</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; padding: 28px 24px 60px;
+    background: #EDEFF2; color: #1A1D21;
+    font: 14px/1.5 "Inter", "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.sub { margin: 0 0 28px; color: #6B7684; font-size: 13px; }
+  h2 { font-size: 13px; margin: 36px 0 14px; color: #6B7684;
+       text-transform: uppercase; letter-spacing: .06em; }
+  .fila { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+  figure { margin: 0; }
+  figure img { display: block; background: #fff; border: 1px solid #D5DAE0;
+               border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  figcaption { margin-top: 8px; font-size: 12px; color: #5F6B76; max-width: 360px; }
+  figcaption b { color: #1A1D21; font-weight: 600; }
+  .ancho img { max-width: 100%; }
+</style>
+</head>
+<body>
+  <h1>Pantallas del prototipo — hoja de contacto</h1>
+  <p class="sub">Cada archivo .svg de esta carpeta se importa a Figma como un frame editable de 360 × 800.</p>
+
+  <h2>Flujo normal</h2>
+  <div class="fila">
+    <figure><img src="01-seleccion-robot.svg" alt="Selección de robot">
+      <figcaption><b>1 · Selección de robot</b> — incluye un equipo en carga y uno fuera de servicio para mostrar el estado deshabilitado con su motivo.</figcaption></figure>
+    <figure><img src="04b-control-en-espera.svg" alt="Control en espera">
+      <figcaption><b>4b · Control en espera</b> — punto de partida: iniciar habilitado y el resto deshabilitado con su motivo.</figcaption></figure>
+    <figure><img src="02-supervision.svg" alt="Supervisión">
+      <figcaption><b>2 · Supervisión</b> — las ocho variables obligatorias más las tres del servicio.</figcaption></figure>
+    <figure><img src="03-mision.svg" alt="Misión">
+      <figcaption><b>3 · Misión</b> — los cinco puntos de la ronda con su resultado.</figcaption></figure>
+    <figure><img src="03b-mision-finalizada.svg" alt="Misión finalizada">
+      <figcaption><b>3b · Misión finalizada</b> — cierre del flujo normal: 5 de 5 puntos e informe disponible.</figcaption></figure>
+    <figure><img src="05b-historial.svg" alt="Historial">
+      <figcaption><b>5b · Historial</b> — eventos persistidos, con los reconciliados marcados.</figcaption></figure>
+  </div>
+
+  <h2>Flujo con falla</h2>
+  <div class="fila">
+    <figure><img src="07-modal-decision-anomalia.svg" alt="Decisión de anomalía">
+      <figcaption><b>Modal · Decisión de anomalía</b> — los tres caminos del subproceso.</figcaption></figure>
+    <figure><img src="08-modal-autorizacion.svg" alt="Autorización de supervisor">
+      <figcaption><b>Modal · Autorización</b> — código con vigencia de 120 s.</figcaption></figure>
+    <figure><img src="08b-modal-autorizacion-rechazada.svg" alt="Autorización rechazada">
+      <figcaption><b>Modal · Autorización rechazada</b> — estado de error del componente.</figcaption></figure>
+    <figure><img src="04-control.svg" alt="Control">
+      <figcaption><b>4 · Control</b> — condiciones de habilitación visibles y una orden confirmada que no se ejecutó.</figcaption></figure>
+  </div>
+
+  <h2>Estados y contingencias</h2>
+  <div class="fila">
+    <figure><img src="02b-supervision-enlace-perdido.svg" alt="Supervisión sin enlace">
+      <figcaption><b>2b · Supervisión sin enlace</b> — telemetría congelada, enlace al día, orden sin respuesta.</figcaption></figure>
+    <figure><img src="05-alertas.svg" alt="Alertas">
+      <figcaption><b>5 · Alertas</b> — tres severidades y la distinción entre reconocer y resolver.</figcaption></figure>
+    <figure><img src="09-modal-confirmacion.svg" alt="Confirmación de dos pasos">
+      <figcaption><b>Modal · Confirmación</b> — segundo paso de cancelar la ronda.</figcaption></figure>
+    <figure><img src="06-modo-demo.svg" alt="Modo demo">
+      <figcaption><b>6 · Modo demo</b> — los cinco escenarios, declarado como herramienta de prueba.</figcaption></figure>
+  </div>
+
+  <h2>Componentes</h2>
+  <div class="fila ancho">
+    <figure><img src="10-componentes-y-estados.svg" alt="Componentes y estados">
+      <figcaption><b>Seis componentes × cuatro estados</b> — normal, deshabilitado, advertencia y error.</figcaption></figure>
+  </div>
+</body>
+</html>

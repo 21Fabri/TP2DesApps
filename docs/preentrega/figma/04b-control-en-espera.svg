@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Control</text>
+
+  <!-- Estado de partida -->
+  <rect x="16" y="72" width="328" height="72" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="32" y="86" width="98" height="24" rx="12" fill="#EEF1F4"/>
+  <text x="81" y="102" font-size="11" font-weight="700" fill="#5F6B76" text-anchor="middle">EN ESPERA</text>
+  <text x="32" y="130" font-size="11.5" fill="#6B7684">En la antesala · batería 92 % · 148 min de autonomía</text>
+
+  <text x="20" y="172" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">COMANDOS DE MISIÓN</text>
+
+  <!-- Iniciar mision: habilitado -->
+  <rect x="16" y="180" width="328" height="66" rx="10" fill="#0B63CE"/>
+  <text x="32" y="208" font-size="14" font-weight="700" fill="#FFFFFF">Iniciar ronda de verificación</text>
+  <text x="32" y="228" font-size="10.5" fill="#D6E5F8">48 min de ronda + 9 de regreso, con 15 % de margen</text>
+  <text x="32" y="241" font-size="10.5" fill="#D6E5F8">Autonomía suficiente: 148 min disponibles</text>
+
+  <!-- Pausar: deshabilitado -->
+  <rect x="16" y="254" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="278" font-size="13" font-weight="600" fill="#AAB2BB">Pausar misión</text>
+  <text x="32" y="297" font-size="10.5" fill="#8A949E">No hay ninguna ronda en curso</text>
+
+  <!-- Reanudar: deshabilitado -->
+  <rect x="16" y="316" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="340" font-size="13" font-weight="600" fill="#AAB2BB">Reanudar misión</text>
+  <text x="32" y="359" font-size="10.5" fill="#8A949E">El robot no está pausado</text>
+
+  <!-- Cancelar: deshabilitado -->
+  <rect x="16" y="378" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="402" font-size="13" font-weight="600" fill="#AAB2BB">Cancelar misión</text>
+  <text x="32" y="421" font-size="10.5" fill="#8A949E">No hay ninguna ronda que cancelar</text>
+
+  <text x="20" y="458" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">SEGURIDAD</text>
+
+  <!-- Regreso: deshabilitado -->
+  <rect x="16" y="466" width="328" height="54" rx="10" fill="#F1F3F5"/>
+  <text x="32" y="490" font-size="13" font-weight="600" fill="#AAB2BB">Regreso a punto seguro</text>
+  <text x="32" y="509" font-size="10.5" fill="#8A949E">Ya está en la antesala</text>
+
+  <!-- Detencion operativa: habilitada siempre -->
+  <rect x="16" y="528" width="328" height="62" rx="10" fill="#FFFFFF" stroke="#C0392B" stroke-width="2"/>
+  <text x="32" y="554" font-size="14" font-weight="700" fill="#C0392B">Detención operativa</text>
+  <text x="32" y="572" font-size="10.5" fill="#A5392B">Siempre habilitada, sin condiciones</text>
+  <text x="32" y="586" font-size="9.5" fill="#8A949E">Habilitada incluso con el robot quieto en la base</text>
+
+  <text x="20" y="616" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">ÓRDENES ENVIADAS</text>
+
+  <rect x="16" y="624" width="328" height="64" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"
+        stroke-dasharray="5 4"/>
+  <text x="180" y="652" font-size="12" fill="#AAB2BB" text-anchor="middle">Todavía no se envió ninguna orden</text>
+  <text x="180" y="671" font-size="10" fill="#AAB2BB" text-anchor="middle">Cada orden va a quedar listada con su estado</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="156" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#0B63CE" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#0B63CE"/>
+  <text x="180" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>

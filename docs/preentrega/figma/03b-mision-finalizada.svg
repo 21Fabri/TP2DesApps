@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Misión</text>
+
+  <!-- Encabezado: ronda finalizada -->
+  <rect x="16" y="72" width="328" height="104" rx="12" fill="#E8F4EC" stroke="#4E9C6D" stroke-width="2"/>
+  <text x="32" y="100" font-size="14" font-weight="700" fill="#2F6B48">Ronda completa</text>
+  <rect x="246" y="86" width="82" height="20" rx="10" fill="#2F6B48"/>
+  <text x="287" y="100" font-size="10" font-weight="700" fill="#FFFFFF" text-anchor="middle">FINALIZADA</text>
+  <rect x="32" y="112" width="296" height="8" rx="4" fill="#C3E0CF"/>
+  <rect x="32" y="112" width="296" height="8" rx="4" fill="#2F6B48"/>
+  <text x="32" y="140" font-size="11.5" fill="#2F6B48">5 de 5 puntos verificados · 47 min</text>
+  <text x="32" y="160" font-size="11.5" font-weight="600" fill="#2F6B48">Informe de condiciones disponible para la cuadrilla</text>
+
+  <!-- P1 -->
+  <rect x="16" y="190" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="190" width="5" height="76" rx="2.5" fill="#2F6B48"/>
+  <text x="34" y="214" font-size="13" font-weight="600" fill="#1A1D21">P1 · Sala de tablero general</text>
+  <rect x="292" y="200" width="36" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="310" y="214" font-size="10.5" font-weight="700" fill="#2F6B48" text-anchor="middle">OK</text>
+  <text x="34" y="236" font-size="11" fill="#6B7684">38,5 °C · ausencia de tensión confirmada</text>
+  <text x="34" y="254" font-size="10" fill="#8A949E">Verificado 14:18</text>
+
+  <!-- P2 -->
+  <rect x="16" y="276" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="276" width="5" height="76" rx="2.5" fill="#2F6B48"/>
+  <text x="34" y="300" font-size="13" font-weight="600" fill="#1A1D21">P2 · Sala de bombas y presurización</text>
+  <rect x="292" y="286" width="36" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="310" y="300" font-size="10.5" font-weight="700" fill="#2F6B48" text-anchor="middle">OK</text>
+  <text x="34" y="322" font-size="11" fill="#6B7684">32,0 °C · sin pérdidas</text>
+  <text x="34" y="340" font-size="10" fill="#8A949E">Verificado 14:28</text>
+
+  <!-- P3 -->
+  <rect x="16" y="362" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="362" width="5" height="76" rx="2.5" fill="#2F6B48"/>
+  <text x="34" y="386" font-size="13" font-weight="600" fill="#1A1D21">P3 · Sala de UPS y racks</text>
+  <rect x="292" y="372" width="36" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="310" y="386" font-size="10.5" font-weight="700" fill="#2F6B48" text-anchor="middle">OK</text>
+  <text x="34" y="408" font-size="11" fill="#6B7684">41,2 °C · ventilación normal</text>
+  <text x="34" y="426" font-size="10" fill="#8A949E">Verificado 14:37</text>
+
+  <!-- P4 -->
+  <rect x="16" y="448" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="448" width="5" height="76" rx="2.5" fill="#B26B00"/>
+  <text x="34" y="472" font-size="13" font-weight="600" fill="#1A1D21">P4 · Sala de máquinas de ascensores</text>
+  <rect x="246" y="458" width="82" height="20" rx="10" fill="#FFF4E0"/>
+  <text x="287" y="472" font-size="10" font-weight="700" fill="#B26B00" text-anchor="middle">OBSERVACIÓN</text>
+  <text x="34" y="494" font-size="11" fill="#8A5200">29,8 °C · ruido de maniobra fuera de lo habitual</text>
+  <text x="34" y="512" font-size="10" fill="#8A949E">Verificado 14:47</text>
+
+  <!-- P5 -->
+  <rect x="16" y="534" width="328" height="76" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <rect x="16" y="534" width="5" height="76" rx="2.5" fill="#2F6B48"/>
+  <text x="34" y="558" font-size="13" font-weight="600" fill="#1A1D21">P5 · Grupo electrógeno</text>
+  <rect x="292" y="544" width="36" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="310" y="558" font-size="10.5" font-weight="700" fill="#2F6B48" text-anchor="middle">OK</text>
+  <text x="34" y="580" font-size="11" fill="#6B7684">27,4 °C · combustible 82 % · arranque normal</text>
+  <text x="34" y="598" font-size="10" fill="#8A949E">Verificado 14:55</text>
+
+  <!-- Cierre -->
+  <rect x="16" y="622" width="328" height="60" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="646" font-size="11.5" fill="#1A1D21">El robot regresó a la antesala a las 15:04</text>
+  <text x="32" y="665" font-size="10.5" fill="#6B7684">Una observación no bloquea el ingreso, pero queda en el informe</text>
+
+  <rect x="16" y="694" width="328" height="40" rx="10" fill="#FFFFFF" stroke="#0B63CE" stroke-width="1.5"/>
+  <text x="180" y="719" font-size="12.5" font-weight="600" fill="#0B63CE" text-anchor="middle">Ver en el historial</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="84" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#0B63CE" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#8A949E"/>
+  <text x="180" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>

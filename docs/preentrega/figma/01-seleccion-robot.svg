@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">Verificación de salas técnicas</text>
+
+  <text x="20" y="88" font-size="13" fill="#6B7684">Seleccioná el equipo para la ronda</text>
+
+  <!-- Robot 1: disponible -->
+  <rect x="16" y="106" width="328" height="118" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="134" font-size="15" font-weight="600" fill="#1A1D21">G1-01</text>
+  <rect x="86" y="120" width="76" height="20" rx="10" fill="#E8F4EC"/>
+  <text x="124" y="134" font-size="11" font-weight="600" fill="#2F6B48" text-anchor="middle">Disponible</text>
+  <text x="32" y="158" font-size="12" fill="#6B7684">Unitree G1 EDU · Batería 92 % · 148 min</text>
+  <text x="32" y="177" font-size="12" fill="#6B7684">En la base de carga de la antesala</text>
+  <rect x="32" y="190" width="120" height="30" rx="8" fill="#0B63CE"/>
+  <text x="92" y="210" font-size="12.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Seleccionar</text>
+
+  <!-- Robot 2: en carga (deshabilitado) -->
+  <rect x="16" y="238" width="328" height="118" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="266" font-size="15" font-weight="600" fill="#AAB2BB">G1-02</text>
+  <rect x="86" y="252" width="66" height="20" rx="10" fill="#FFF4E0"/>
+  <text x="119" y="266" font-size="11" font-weight="600" fill="#B26B00" text-anchor="middle">En carga</text>
+  <text x="32" y="290" font-size="12" fill="#AAB2BB">Unitree G1 EDU · Batería 34 %</text>
+  <text x="32" y="309" font-size="12" fill="#B26B00">Disponible en 50 min</text>
+  <rect x="32" y="322" width="120" height="30" rx="8" fill="#EEF1F4"/>
+  <text x="92" y="342" font-size="12.5" font-weight="600" fill="#AAB2BB" text-anchor="middle">Seleccionar</text>
+
+  <!-- Robot 3: fuera de servicio (deshabilitado) -->
+  <rect x="16" y="370" width="328" height="118" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="398" font-size="15" font-weight="600" fill="#AAB2BB">GO2-01</text>
+  <rect x="94" y="384" width="112" height="20" rx="10" fill="#FDECEA"/>
+  <text x="150" y="398" font-size="11" font-weight="600" fill="#C0392B" text-anchor="middle">Fuera de servicio</text>
+  <text x="32" y="422" font-size="12" fill="#AAB2BB">Unitree Go2 · Sin manipulación</text>
+  <text x="32" y="441" font-size="12" fill="#C0392B">No puede accionar mandos de tablero</text>
+  <rect x="32" y="454" width="120" height="30" rx="8" fill="#EEF1F4"/>
+  <text x="92" y="474" font-size="12.5" font-weight="600" fill="#AAB2BB" text-anchor="middle">Seleccionar</text>
+
+  <!-- Nota -->
+  <rect x="16" y="510" width="328" height="66" rx="10" fill="#EEF1F4"/>
+  <text x="32" y="534" font-size="11.5" fill="#6B7684">Los equipos en carga o fuera de servicio quedan</text>
+  <text x="32" y="551" font-size="11.5" fill="#6B7684">visibles con el motivo, no se ocultan: el operador</text>
+  <text x="32" y="568" font-size="11.5" fill="#6B7684">tiene que saber de qué flota dispone.</text>
+</svg>

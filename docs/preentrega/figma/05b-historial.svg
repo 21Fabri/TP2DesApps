@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 800" width="360" height="800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="360" height="800" fill="#F7F8FA"/>
+
+  <!-- App bar -->
+  <rect width="360" height="56" fill="#1F3A5F"/>
+  <text x="20" y="34" font-size="15" font-weight="600" fill="#FFFFFF">G1-01 · Alertas e historial</text>
+
+  <!-- Pestanias -->
+  <rect x="0" y="56" width="360" height="44" fill="#FFFFFF"/>
+  <line x1="0" y1="100" x2="360" y2="100" stroke="#E2E6EB" stroke-width="1"/>
+  <text x="90" y="84" font-size="13" fill="#8A949E" text-anchor="middle">Alertas (2)</text>
+  <text x="270" y="84" font-size="13" font-weight="600" fill="#0B63CE" text-anchor="middle">Historial</text>
+  <rect x="220" y="97" width="100" height="3" fill="#0B63CE"/>
+
+  <!-- Resumen de la ronda en curso -->
+  <rect x="16" y="114" width="328" height="88" rx="12" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="138" font-size="13" font-weight="600" fill="#1A1D21">Ronda del 20/11 · 14:08</text>
+  <rect x="254" y="124" width="74" height="19" rx="9.5" fill="#E7F0FB"/>
+  <text x="291" y="137" font-size="10" font-weight="700" fill="#0B63CE" text-anchor="middle">EN CURSO</text>
+  <text x="32" y="160" font-size="11" fill="#6B7684">2 de 5 puntos · 1 OK · 1 FALLA · 3 sin verificar</text>
+  <text x="32" y="180" font-size="11" fill="#6B7684">14 eventos registrados · 2 reconciliados</text>
+  <text x="32" y="194" font-size="10" fill="#C0392B">Mientras siga incompleta, la cuadrilla no puede ingresar</text>
+
+  <text x="20" y="228" font-size="9.5" font-weight="600" fill="#8A949E" letter-spacing="0.6">EVENTOS</text>
+
+  <!-- Evento reconciliado 1 -->
+  <rect x="16" y="236" width="328" height="76" rx="10" fill="#FFFFFF" stroke="#9EC2EC" stroke-width="1.5"/>
+  <rect x="32" y="248" width="94" height="18" rx="9" fill="#E7F0FB"/>
+  <text x="79" y="261" font-size="9" font-weight="700" fill="#0B63CE" text-anchor="middle">RECONCILIADO</text>
+  <text x="32" y="284" font-size="12" font-weight="600" fill="#1A1D21">P1 completado · FALLA</text>
+  <text x="32" y="302" font-size="10" fill="#6B7684">Ocurrió 14:18:42 · recibido 14:19:29 (47 s después)</text>
+
+  <!-- Evento reconciliado 2 -->
+  <rect x="16" y="320" width="328" height="76" rx="10" fill="#FFFFFF" stroke="#9EC2EC" stroke-width="1.5"/>
+  <rect x="32" y="332" width="94" height="18" rx="9" fill="#E7F0FB"/>
+  <text x="79" y="345" font-size="9" font-weight="700" fill="#0B63CE" text-anchor="middle">RECONCILIADO</text>
+  <text x="32" y="368" font-size="12" font-weight="600" fill="#1A1D21">Temperatura 78,4 °C registrada en P1</text>
+  <text x="32" y="386" font-size="10" fill="#6B7684">Ocurrió 14:18:40 · recibido 14:19:29</text>
+
+  <!-- Eventos normales -->
+  <rect x="16" y="404" width="328" height="56" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="428" font-size="12" fill="#1A1D21">Enlace restablecido</text>
+  <text x="32" y="446" font-size="10" fill="#8A949E">14:19:29</text>
+
+  <rect x="16" y="468" width="328" height="56" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="492" font-size="12" fill="#1A1D21">Enlace perdido al entrar al tablero general</text>
+  <text x="32" y="510" font-size="10" fill="#8A949E">14:18:42</text>
+
+  <rect x="16" y="532" width="328" height="56" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="556" font-size="12" fill="#1A1D21">P2 completado · OK · 32,0 °C</text>
+  <text x="32" y="574" font-size="10" fill="#8A949E">14:28:11</text>
+
+  <rect x="16" y="596" width="328" height="56" rx="10" fill="#FFFFFF" stroke="#E2E6EB" stroke-width="1.5"/>
+  <text x="32" y="620" font-size="12" fill="#1A1D21">Ronda iniciada por el operador</text>
+  <text x="32" y="638" font-size="10" fill="#8A949E">14:08:03</text>
+
+  <!-- Nota de reconciliacion -->
+  <rect x="16" y="666" width="328" height="60" rx="10" fill="#EEF1F4"/>
+  <text x="32" y="690" font-size="10.5" fill="#6B7684">Un evento reconciliado ocurrió antes de que la app lo</text>
+  <text x="32" y="707" font-size="10.5" fill="#6B7684">recibiera. El historial guarda las dos marcas de tiempo,</text>
+  <text x="32" y="721" font-size="10.5" fill="#6B7684">porque el orden real no es el orden de llegada.</text>
+
+  <!-- Barra de navegacion -->
+  <rect x="0" y="740" width="360" height="60" fill="#FFFFFF"/>
+  <line x1="0" y1="740" x2="360" y2="740" stroke="#E2E6EB" stroke-width="1"/>
+  <rect x="228" y="740" width="48" height="3" fill="#0B63CE"/>
+  <circle cx="36" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="36" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Supervisión</text>
+  <rect x="101" y="756" width="14" height="12" rx="2" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <text x="108" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Misión</text>
+  <circle cx="180" cy="762" r="7" fill="none" stroke="#8A949E" stroke-width="2"/>
+  <circle cx="180" cy="762" r="2.5" fill="#8A949E"/>
+  <text x="180" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Control</text>
+  <path d="M 252 755 L 259 768 L 245 768 Z" fill="none" stroke="#0B63CE" stroke-width="2" stroke-linejoin="round"/>
+  <text x="252" y="786" font-size="9" font-weight="600" fill="#0B63CE" text-anchor="middle">Alertas</text>
+  <path d="M 320 755 L 330 762 L 320 769 Z" fill="none" stroke="#8A949E" stroke-width="2" stroke-linejoin="round"/>
+  <text x="324" y="786" font-size="9" fill="#8A949E" text-anchor="middle">Demo</text>
+</svg>
