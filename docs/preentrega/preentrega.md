@@ -335,10 +335,19 @@ Se usan **6 pantallas y 3 modales**, con la desconexión tratada como estado tra
 
 Tarjeta de telemetría, botón de comando, chip de estado de orden, banner de alerta, indicador de antigüedad del dato y barra de progreso de ronda. Cada uno se entrega en los cuatro estados visuales: **normal, deshabilitado, advertencia y error**.
 
-### 9.3 Los dos flujos navegables
+### 9.3 Los flujos navegables
 
 - **Flujo normal:** selección de robot → supervisión → iniciar ronda → progreso → finalización → historial.
 - **Flujo con falla:** ronda en curso → punto con `FALLA` → decisión de anomalía → autorización de supervisor → accionamiento → resultado.
+- **Contingencias:** modo demo → desconexión, incidente en P1 y orden confirmada que no se ejecuta. Permite entrar directamente a cualquiera de los cinco escenarios sin recorrer los otros dos flujos.
+
+### 9.4 Enlace al prototipo
+
+https://www.figma.com/design/XzcYc5yg9RV1DTlx7Y0Zl2/TP2-DesApps1
+
+El archivo contiene las seis pantallas con sus variantes de estado, los modales y el tablero de componentes, con veintitrés conexiones repartidas en los tres flujos: seis en el flujo normal, nueve en el flujo con falla y ocho en contingencias.
+
+Dos transiciones son atajos de prototipo y se declaran como tales: el paso de la ronda en curso a la ronda finalizada, que representa el transcurso de los cuarenta y ocho minutos, y los saltos desde el modo demo a cada escenario.
 
 ---
 

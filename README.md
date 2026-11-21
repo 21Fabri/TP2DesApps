@@ -16,7 +16,7 @@ y no declara ningún permiso.
 | Entrega | Dónde está |
 |---|---|
 | **Preentrega** (6.1) | [`docs/preentrega/`](docs/preentrega/) — documento en PDF y Word, esquema del recorrido y las pantallas en SVG para armar el Figma |
-| **Entrega final** (6.2) | Este repositorio: APK, código y tests. Faltan el Figma publicado, las evidencias y el video |
+| **Entrega final** (6.2) | Este repositorio: APK, código y tests. Faltan los componentes en Figma, las evidencias y el video |
 
 ## Cómo correrla
 

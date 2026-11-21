@@ -16,8 +16,7 @@ Lo que pide el punto 6.1 del enunciado:
 | `esquema-recorrido.svg` / `.png` | El esquema del entorno y la ronda, por separado |
 | `figma/` | Las 10 pantallas, los 4 modales y el tablero de componentes en SVG para importar, más la guía para armar el prototipo |
 
-El link del Figma hay que pegarlo en el documento una vez publicado: está al
-final de la sección 9.
+El link del prototipo ya está en el documento, en la sección 9.4.
 
 ## Cómo regenerar el PDF y el Word
 
@@ -49,8 +48,8 @@ npm install marked docx
 
 Esto **no** va en la preentrega, pero ya está casi todo hecho en el repositorio:
 
-- Figma definitivo, APK instalable y código fuente → el APK y el código están;
-  falta el Figma.
+- Figma definitivo, APK instalable y código fuente → los tres están; al Figma le
+  faltan los componentes convertidos en variantes.
 - Diagrama de arquitectura, Repository simulado y ejemplos de mensajes →
   están en las secciones 11 y 12 del documento de diseño.
 - Evidencias de los cinco escenarios → falta correr la app y capturar.

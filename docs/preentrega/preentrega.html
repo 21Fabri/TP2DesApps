@@ -666,11 +666,16 @@ Fabricio Boccardo<br>
 <p><strong>El modo demo</strong> no existiría en una app entregada a un cliente. Se justifica como herramienta de prueba: permite reproducir cada escenario a voluntad para generar las evidencias y el video, y disparar cualquier escenario durante la defensa. Queda marcado como tal.</p>
 <h3>9.2 Componentes reutilizables</h3>
 <p>Tarjeta de telemetría, botón de comando, chip de estado de orden, banner de alerta, indicador de antigüedad del dato y barra de progreso de ronda. Cada uno se entrega en los cuatro estados visuales: <strong>normal, deshabilitado, advertencia y error</strong>.</p>
-<h3>9.3 Los dos flujos navegables</h3>
+<h3>9.3 Los flujos navegables</h3>
 <ul>
 <li><strong>Flujo normal:</strong> selección de robot → supervisión → iniciar ronda → progreso → finalización → historial.</li>
 <li><strong>Flujo con falla:</strong> ronda en curso → punto con <code>FALLA</code> → decisión de anomalía → autorización de supervisor → accionamiento → resultado.</li>
+<li><strong>Contingencias:</strong> modo demo → desconexión, incidente en P1 y orden confirmada que no se ejecuta. Permite entrar directamente a cualquiera de los cinco escenarios sin recorrer los otros dos flujos.</li>
 </ul>
+<h3>9.4 Enlace al prototipo</h3>
+<p><a href="https://www.figma.com/design/XzcYc5yg9RV1DTlx7Y0Zl2/TP2-DesApps1">https://www.figma.com/design/XzcYc5yg9RV1DTlx7Y0Zl2/TP2-DesApps1</a></p>
+<p>El archivo contiene las seis pantallas con sus variantes de estado, los modales y el tablero de componentes, con veintitrés conexiones repartidas en los tres flujos: seis en el flujo normal, nueve en el flujo con falla y ocho en contingencias.</p>
+<p>Dos transiciones son atajos de prototipo y se declaran como tales: el paso de la ronda en curso a la ronda finalizada, que representa el transcurso de los cuarenta y ocho minutos, y los saltos desde el modo demo a cada escenario.</p>
 <hr>
 <h2>10. Fuentes técnicas</h2>
 <ul>
